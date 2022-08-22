@@ -6,5 +6,6 @@
     "printWidth": 120,
     "jsxSingleQuote": true,
     "bracketSameLine": false,
-    "endOfLine": "crlf"
+    "endOfLine": "crlf",
+    "singleAttributePerLine": true
 }

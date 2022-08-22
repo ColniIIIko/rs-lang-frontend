@@ -1,0 +1,16 @@
+@use '../../scss/variables';
+
+.navigation{
+    display: flex;
+    column-gap: 30px;
+    position: relative;
+
+    &__elem{
+        list-style-type: none;
+        font-size: 1.25rem;
+    }
+}
+
+.active{
+    color: variables.$font-color-active;
+}

@@ -1,0 +1,29 @@
+import React, { useState } from 'react';
+import ButtonAuth from '../Buttons/ButtonAuth';
+import ButtonUser from '../Buttons/ButtonUser';
+import Logo from '../Logo/Logo';
+import Navigation from '../Navigation/Navigation';
+import './style.scss';
+
+type HeaderProps = {
+  currentPage: string;
+};
+
+function Header({ currentPage }: HeaderProps) {
+  const isAuth = false;
+
+  return (
+    <div className='header-wrapper'>
+      <header className='header'>
+        <Logo />
+        <Navigation
+          currentPage={currentPage}
+          pages={['Главная', 'Учебник', 'Игры']}
+        />
+        {isAuth ? <ButtonUser /> : <ButtonAuth />}
+      </header>
+    </div>
+  );
+}
+
+export default Header;

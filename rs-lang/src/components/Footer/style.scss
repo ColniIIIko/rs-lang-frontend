@@ -1,0 +1,33 @@
+@use '../../scss/variables';
+
+.footer-wrapper{
+    background-color: variables.$bg-color-primary;
+}
+
+.footer{
+    max-width: 1300px;
+    height: 67px;
+    margin: 0 auto;
+    margin-top: auto;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 1rem;
+
+    &__git{
+        display: flex;
+        column-gap: 10px;
+        align-items: center;
+    }
+}
+
+.git-img{
+    width: 30px;
+    height: 30px;
+}
+
+.git-text{
+    color: variables.$font-color-primary;
+}

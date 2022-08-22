@@ -1,0 +1,24 @@
+@use '../../scss/variables';
+
+.btn{
+    display: flex;
+    cursor: pointer;
+    padding: 11px 8px;
+}
+
+.buttons{
+    display: flex;
+    column-gap: 10px;
+    font-size: 1.25rem;
+
+    &__register{
+        border: 3px solid variables.$font-color-primary;
+        border-radius: 81px;
+    }
+
+    &__login,
+    &__user{
+        border: 3px solid #282828;
+    }
+
+}
