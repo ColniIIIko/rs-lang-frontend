@@ -15,7 +15,7 @@ function Footer() {
             <img
               className='git-img'
               src='/assets/svg/git.svg'
-            ></img>
+            />
           </div>
         </a>
       </footer>

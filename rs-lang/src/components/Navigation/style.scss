@@ -6,11 +6,19 @@
     position: relative;
 
     &__elem{
+        cursor: pointer;
         list-style-type: none;
         font-size: 1.25rem;
+        border-bottom: 3px solid transparent;
+        transition: all .4s linear;
+    }
+
+    &__elem:hover:not(.active){
+        border-bottom: 3px solid #000;
     }
 }
 
 .active{
     color: variables.$font-color-active;
+    cursor: default;
 }

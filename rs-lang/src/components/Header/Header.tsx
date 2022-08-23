@@ -16,11 +16,13 @@ function Header({ currentPage }: HeaderProps) {
     <div className='header-wrapper'>
       <header className='header'>
         <Logo />
-        <Navigation
-          currentPage={currentPage}
-          pages={['Главная', 'Учебник', 'Игры']}
-        />
-        {isAuth ? <ButtonUser /> : <ButtonAuth />}
+        <div className='header-nav-wrapper'>
+          <Navigation
+            currentPage={currentPage}
+            pages={['Главная', 'Учебник', 'Игры']}
+          />
+          {isAuth ? <ButtonUser /> : <ButtonAuth />}
+        </div>
       </header>
     </div>
   );

@@ -35,13 +35,15 @@
     &__intro1{
         position:absolute;
         left: 10vw;
-        top: 14%;
+        top: 9%;
+        opacity: 0;
     }
 
     &__intro2{
         position:absolute;
         top: 50%;
         left: 47%;
+        opacity: 0;
     }
 
     &__intro-text{

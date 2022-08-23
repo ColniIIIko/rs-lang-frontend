@@ -21,13 +21,19 @@
         column-gap: 10px;
         align-items: center;
     }
+
+    &__git:hover .git-img{
+        filter: invert(87%) sepia(27%) saturate(1831%) hue-rotate(202deg) brightness(88%) contrast(95%);
+    }
 }
 
 .git-img{
     width: 30px;
     height: 30px;
+    transition: all .3s linear;
 }
 
 .git-text{
     color: variables.$font-color-primary;
 }
+
