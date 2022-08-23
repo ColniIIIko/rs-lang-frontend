@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import ButtonAuth from '../Buttons/ButtonAuth';
 import ButtonUser from '../Buttons/ButtonUser';
 import Logo from '../Logo/Logo';
@@ -11,7 +12,7 @@ type HeaderProps = {
 
 function Header({ currentPage }: HeaderProps) {
   const isAuth = false;
-
+  const [isActive, setActive] = useState<boolean>(false);
   return (
     <div className='header-wrapper'>
       <header className='header'>
@@ -23,6 +24,13 @@ function Header({ currentPage }: HeaderProps) {
           />
           {isAuth ? <ButtonUser /> : <ButtonAuth />}
         </div>
+        <BurgerMenu>
+          <Navigation
+            currentPage={currentPage}
+            pages={['Главная', 'Учебник', 'Игры']}
+          />
+          {isAuth ? <ButtonUser /> : <ButtonAuth />}
+        </BurgerMenu>
       </header>
     </div>
   );
