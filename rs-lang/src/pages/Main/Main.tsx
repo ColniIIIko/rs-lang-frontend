@@ -11,9 +11,7 @@ function Main() {
           transition={{ ease: 'easeOut', duration: 2 }}
         >
           <p className='main__intro-text'>Изучай английский с Lang.</p>
-          <p className='main__intro-subtext'>
-            Приложение для эффективного <br /> изучения иностранных слов в игровой <br /> форме
-          </p>
+          <p className='main__intro-subtext'>Приложение для эффективного изучения иностранных слов в игровой форме</p>
         </motion.div>
         <div className='main__img1'></div>
         <motion.div
@@ -22,10 +20,7 @@ function Main() {
           transition={{ ease: 'easeOut', duration: 2, delay: 1 }}
         >
           <p className='main__intro-text'>Изучай английский с Lang.</p>
-          <p className='main__intro-subtext'>
-            {' '}
-            Приложение для эффективного <br /> изучения иностранных слов в <br /> игровой форме
-          </p>
+          <p className='main__intro-subtext'>Приложение для эффективного изучения иностранных слов в игровой форме</p>
         </motion.div>
         <div className='main__img2'></div>
       </main>

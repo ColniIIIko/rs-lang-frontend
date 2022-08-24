@@ -1,4 +1,5 @@
 @use '../../scss/variables';
+@use '../../scss/mixins';
 
 .main-wrapper{
     background-color: variables.$bg-color-primary;
@@ -14,6 +15,8 @@
     display: flex;
     justify-content: center;
     position: relative;
+    overflow: hidden;
+    width: 100vw;
 
     &__img1{
         height: 280px;
@@ -22,28 +25,53 @@
         background-repeat: no-repeat;
     }
 
+    &__intro1{
+        position:absolute;
+        left: 12vw;
+        top: 10%;
+        opacity: 0;
+        max-width: 365px;
+
+        @include mixins.media-mobile{
+            top: 4%;
+            left: 8vw;
+        }
+    }
+
     &__img2{
         position: absolute;
         height: 309px;
         width: 292px;
         top: 40%;
-        left: 70%;
+        right: 7%;
         background-image: url(../../assets/svg/rs-lang-bg2.svg);
         background-repeat: no-repeat;
-    }
 
-    &__intro1{
-        position:absolute;
-        left: 10vw;
-        top: 9%;
-        opacity: 0;
+        @include mixins.media-tablet{
+            left: 70%;
+            right: 28vw;
+        }
+
     }
 
     &__intro2{
         position:absolute;
-        top: 50%;
-        left: 47%;
+        top: 43vh;
+        right: 27%;
         opacity: 0;
+        max-width: 305px;
+
+        @include mixins.media-tablet{
+            top: 47%;
+            right: 28vw;
+        }
+
+
+        @include mixins.media-mobile{
+            top: 45%;
+            right: 30vw;
+            padding-left: 15px;
+        }
     }
 
     &__intro-text{
