@@ -1,12 +1,41 @@
 @use '../../scss/variables';
 @use '../../scss/mixins';
 
-.register-wrapper{
+%form{
+    padding: 33px 35px;
+    border: 5px solid variables.$border-color-auth;
+    border-radius: 5px;
+    margin-left: 110px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3vh;
+
+    @include mixins.media-mobile{
+        margin-left: 0;
+        padding: 13px 30px;
+    }
+}
+
+.register-wrapper,
+.login-wrapper{
     overflow: hidden;
     width: 100vw;
 }
 
-.register{
+.register,
+.login{
+    display: flex;
+    height: calc(100vh - 167px);
+    padding: 0 10px;
+    max-width: 1300px;
+    margin: 0 auto;
+
+    @include mixins.media-mobile{
+        justify-content: center;
+    }
+}
+
+.login{
     display: flex;
     height: calc(100vh - 167px);
     padding: 0 10px;
@@ -32,20 +61,26 @@
     }
 }
 
-.register-form{
-    padding: 33px 35px;
-    padding-right: 10vw;
-    border: 5px solid variables.$border-color-auth;
-    border-radius: 5px;
-    margin-left: 110px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 3vh;
+.login__img{
+    width: 764px;
+    height: 695px;
+    background-image: url(./../../assets/svg/rs-lang-bg4.svg);
+    margin-right: min(-10px, -10px - calc(100vw - 1280px));
+    left: -200px;
+    top: -25px;
+    position: relative;
+    z-index: 3;
+}
 
-    @include mixins.media-mobile{
-        margin-left: 0;
-        padding: 13px 30px;
-    }
+.register-form{
+    @extend %form;
+    padding-right: 10vw;
+}
+
+.login-form{
+    @extend %form;
+    padding-right: 15vw;
+    height: 60%;
 }
 
 .form__field{
