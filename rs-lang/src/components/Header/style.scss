@@ -20,7 +20,7 @@
     align-items: center;
     column-gap: 5vw;
 
-    @include mixins.media-tablet{
+    @include mixins.media-mobile{
         display: none;
     }
 }

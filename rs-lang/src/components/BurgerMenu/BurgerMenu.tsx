@@ -24,6 +24,13 @@ function BurgerMenu({ children }: Prop) {
           className='burger-menu'
           onClick={(e) => e.stopPropagation()}
         >
+          <div
+            className='burger-menu__close'
+            onClick={() => setActive(false)}
+          >
+            <span className='close_cross1'></span>
+            <span className='close_cross2'></span>
+          </div>
           {children}
         </div>
       </div>

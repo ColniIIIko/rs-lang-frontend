@@ -8,6 +8,15 @@
     border-radius: 8px;
 }
 
+%close-line{
+    display: inline-block;
+    position: absolute;
+    height: 3px;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #FFF;
+}
+
 .burger-ico{
 
     display: none;
@@ -23,7 +32,7 @@
     //     display: none;
     // }
 
-    @include mixins.media-tablet{
+    @include mixins.media-mobile{
         display: flex
     }
 
@@ -68,7 +77,7 @@
         transform: translateX(0);
     }
 
-    @include mixins.media-tablet{
+    @include mixins.media-mobile{
         display: block
     }
 }
@@ -77,9 +86,40 @@
     width: max(320px, 40%);
     height: 100vh;
     position: absolute;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
     z-index: 4;
     right: 0;
     transform: translateX(100%);
     background: linear-gradient(180.17deg, #D49FDC 0.15%, rgba(240, 217, 243, 0.19) 94.51%);
     transition: all .4s ease-out;
+
+
+    &__close{
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border-radius: 50%;
+        position: absolute;
+        z-index: 5;
+        right: 5px;
+        top: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+}
+
+.close_cross1{
+    @extend %close-line;
+    transform: rotate(45deg);
+}
+
+.close_cross2{
+    @extend %close-line;
+    transform: rotate(-45deg);
 }
