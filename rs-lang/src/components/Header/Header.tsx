@@ -20,14 +20,22 @@ function Header({ currentPage }: HeaderProps) {
         <div className='header-nav-wrapper'>
           <Navigation
             currentPage={currentPage}
-            pages={['Главная', 'Учебник', 'Игры']}
+            pages={[
+              { pageName: 'Главная', route: '/' },
+              { pageName: 'Учебник', route: '/book' },
+              { pageName: 'Игры', route: '/games' },
+            ]}
           />
           {isAuth ? <ButtonUser /> : <ButtonAuth />}
         </div>
         <BurgerMenu>
           <Navigation
             currentPage={currentPage}
-            pages={['Главная', 'Учебник', 'Игры']}
+            pages={[
+              { pageName: 'Главная', route: '/' },
+              { pageName: 'Учебник', route: '/book' },
+              { pageName: 'Игры', route: '/games' },
+            ]}
           />
           {isAuth ? <ButtonUser /> : <ButtonAuth />}
         </BurgerMenu>

@@ -12,6 +12,7 @@
         font-size: 1.25rem;
         border-bottom: 3px solid transparent;
         transition: all .4s linear;
+        color: #000;
 
         @include mixins.media-mobile{
             font-size: 2rem;
