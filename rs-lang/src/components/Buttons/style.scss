@@ -1,0 +1,34 @@
+@use '../../scss/variables';
+
+.btn{
+    display: flex;
+    cursor: pointer;
+    padding: 11px 8px;
+    font-size: 1.25rem;
+
+    background: linear-gradient(to left, variables.$bg-color-primary 50%, #D49FDC 50.15%, rgba(240, 217, 243, 0.19)) right;
+    background-size: 200%;
+    transition: .5s ease-out;
+
+    &:hover{
+        background-position: left;
+    }
+}
+
+
+.buttons{
+    display: flex;
+    column-gap: 10px;
+    font-size: 1.25rem;
+
+    &__register{
+        border: 3px solid variables.$font-color-primary;
+        border-radius: 81px;
+    }
+
+    &__login,
+    &__user{
+        border: 3px solid #282828;
+    }
+
+}

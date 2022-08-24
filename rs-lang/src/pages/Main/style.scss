@@ -1,0 +1,88 @@
+@use '../../scss/variables';
+@use '../../scss/mixins';
+
+.main-wrapper{
+    background-color: variables.$bg-color-primary;
+}
+
+// TODO: probably float will be good
+
+.main{
+    max-width: 1300px;
+    height: calc(100vh - 167px);
+    padding: 0 10px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+
+    &__img1{
+        height: 280px;
+        width: 1176px;
+        background-image: url(../../assets/svg/rs-lang-bg1.svg);
+        background-repeat: no-repeat;
+    }
+
+    &__intro1{
+        position:absolute;
+        left: 12vw;
+        top: 10%;
+        opacity: 0;
+        max-width: 365px;
+
+        @include mixins.media-mobile{
+            top: 4%;
+            left: 8vw;
+        }
+    }
+
+    &__img2{
+        position: absolute;
+        height: 309px;
+        width: 292px;
+        top: 40%;
+        right: 7%;
+        background-image: url(../../assets/svg/rs-lang-bg2.svg);
+        background-repeat: no-repeat;
+
+        @include mixins.media-tablet{
+            left: 70%;
+            right: 28vw;
+        }
+
+    }
+
+    &__intro2{
+        position:absolute;
+        top: 43vh;
+        right: 27%;
+        opacity: 0;
+        max-width: 305px;
+
+        @include mixins.media-tablet{
+            top: 47%;
+            right: 28vw;
+        }
+
+
+        @include mixins.media-mobile{
+            top: 45%;
+            right: 30vw;
+            padding-left: 15px;
+        }
+    }
+
+    &__intro-text{
+        margin-bottom: 5px;
+        font-size: 1.5rem;
+        font-weight:normal;
+    }
+
+    &__intro-subtext{
+        font-size: 1.25rem;
+        color: variables.$font-color-secondary;
+        font-weight:normal;
+    }
+}

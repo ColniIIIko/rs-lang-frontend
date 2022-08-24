@@ -1,0 +1,27 @@
+@use '../../scss/variables';
+@use '../../scss/mixins';
+
+.header-wrapper{
+    background-color: variables.$bg-color-primary;
+}
+
+.header{
+    max-width: 1300px;
+    height: 100px;
+    padding: 0 10px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-nav-wrapper{
+    display: flex;
+    align-items: center;
+    column-gap: 5vw;
+
+    @include mixins.media-mobile{
+        display: none;
+    }
+}
+

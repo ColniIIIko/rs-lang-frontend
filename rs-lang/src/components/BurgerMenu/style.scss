@@ -1,0 +1,125 @@
+@use '../../scss/mixins';
+
+%burger-line{
+    display: inline-block;
+    background-color: #000;
+    height: 4px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+%close-line{
+    display: inline-block;
+    position: absolute;
+    height: 3px;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #FFF;
+}
+
+.burger-ico{
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 45px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+
+    // &.active{
+    //     display: none;
+    // }
+
+    @include mixins.media-mobile{
+        display: flex
+    }
+
+}
+
+.burger-line{
+    @extend %burger-line;
+
+    &:before{
+        content: "";
+        position: absolute;
+        top: 0;
+        @extend %burger-line;
+    }
+
+    &:after{
+        content: "";
+        position: absolute;
+        bottom: 0;
+        @extend %burger-line;
+    }
+}
+
+.burger-menu-wrapper{
+    display: none;
+    position: fixed;
+    z-index: -1;
+    overflow: hidden;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: opacity .2s linear;
+    opacity: 0;
+    &.active{
+        z-index: 3;
+        opacity: 1;
+    }
+
+    &.active .burger-menu{
+        transform: translateX(0);
+    }
+
+    @include mixins.media-mobile{
+        display: block
+    }
+}
+
+.burger-menu{
+    width: max(320px, 40%);
+    height: 100vh;
+    position: absolute;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    z-index: 4;
+    right: 0;
+    transform: translateX(100%);
+    background: linear-gradient(180.17deg, #D49FDC 0.15%, rgba(240, 217, 243, 0.19) 94.51%);
+    transition: all .4s ease-out;
+
+
+    &__close{
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border-radius: 50%;
+        position: absolute;
+        z-index: 5;
+        right: 5px;
+        top: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+}
+
+.close_cross1{
+    @extend %close-line;
+    transform: rotate(45deg);
+}
+
+.close_cross2{
+    @extend %close-line;
+    transform: rotate(-45deg);
+}
