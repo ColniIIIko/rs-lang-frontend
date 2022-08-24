@@ -1,0 +1,103 @@
+@use '../../scss/variables';
+@use '../../scss/mixins';
+
+.register-wrapper{
+    overflow: hidden;
+    width: 100vw;
+}
+
+.register{
+    display: flex;
+    height: calc(100vh - 167px);
+    padding: 0 10px;
+    max-width: 1300px;
+    margin: 0 auto;
+
+    @include mixins.media-mobile{
+        justify-content: center;
+    }
+}
+
+.register__img{
+    width: 764px;
+    height: 700px;
+    background-image: url(./../../assets/svg/rs-lang-bg3.svg);
+    margin-right: min(-60px, -60px - calc(100vw - 1280px));
+    position: relative;
+    top: -50px;
+    left: -50px;
+
+    @include mixins.media-mobile{
+        display: none;
+    }
+}
+
+.register-form{
+    padding: 33px 35px;
+    padding-right: 10vw;
+    border: 5px solid variables.$border-color-auth;
+    border-radius: 5px;
+    margin-left: 110px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3vh;
+
+    @include mixins.media-mobile{
+        margin-left: 0;
+        padding: 13px 30px;
+    }
+}
+
+.form__field{
+    display: flex;
+    flex-direction: column;
+}
+
+.form__label{
+    color: variables.$font-color-primary;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    white-space: nowrap;
+
+    @include mixins.media-mobile{
+        margin-bottom: 10px;
+    }
+}
+
+.form__input::placeholder{
+    color:#C0C0C0;
+}
+
+.form__input{
+    font-size: 1.5rem;
+    outline: none;
+    border: none;
+    border-bottom: 3.5px solid variables.$border-color-auth;
+}
+
+.form__input:invalid{
+    border-bottom: 3.5px solid #e659a7;
+}
+
+.form__error{
+    font-size: .9rem;
+    color: #e659a7;
+}
+
+.btn{
+    display: flex;
+    cursor: pointer;
+    padding: 11px 8px;
+    font-size: 1.25rem;
+    border: 2.5px solid variables.$border-color-auth;
+    width: max-content;
+    margin-top: auto;
+
+    background: linear-gradient(to left, variables.$bg-color-primary 50%, #D49FDC 50.15%, rgba(240, 217, 243, 0.19)) right;
+    background-size: 200%;
+    transition: .5s ease-out;
+
+    &:hover{
+        background-position: left;
+    }
+}
