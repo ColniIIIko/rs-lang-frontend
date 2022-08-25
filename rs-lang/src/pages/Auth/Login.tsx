@@ -2,13 +2,13 @@ import React from 'react';
 import './style.scss';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { instance } from '../../axios/axiosConfig';
+import { useAppDispatch } from '../../redux/hooks';
+import { fetchLoginThunk } from '../../redux/reducers/auth';
+import { AppDispatch } from '../../redux/store';
+import { FormLoginInputs } from './types';
 
-type FormInputs = {
-  email: string;
-  password: string;
-};
-
-const defaultValues: FormInputs = {
+const defaultValues: FormLoginInputs = {
   email: '',
   password: '',
 };
@@ -23,13 +23,15 @@ function Login() {
     handleSubmit,
     formState: { isValid, errors },
     setError,
-  } = useForm<FormInputs>({
+  } = useForm<FormLoginInputs>({
     mode: 'onSubmit',
     defaultValues,
   });
 
-  const onSubmit = (data: FormInputs) => {
-    console.log(data);
+  const dispatch = useAppDispatch();
+
+  const onSubmit = async (userConf: FormLoginInputs) => {
+    const data = await dispatch(fetchLoginThunk(userConf));
   };
   return (
     <div className='login-wrapper'>

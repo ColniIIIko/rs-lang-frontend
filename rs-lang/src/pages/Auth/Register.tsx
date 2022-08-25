@@ -2,15 +2,10 @@ import React from 'react';
 import './style.scss';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { instance } from '../../axios/axiosConfig';
+import { FormRegisterInputs } from './types';
 
-type FormInputs = {
-  email: string;
-  name: string;
-  password: string;
-  passwordConfirm: string;
-};
-
-const defaultValues: FormInputs = {
+const defaultValues: FormRegisterInputs = {
   email: '',
   name: '',
   password: '',
@@ -25,17 +20,22 @@ function Register() {
   const {
     register,
     handleSubmit,
-    formState: { isValid, errors },
+    formState: { errors },
     setError,
-  } = useForm<FormInputs>({
+  } = useForm<FormRegisterInputs>({
     mode: 'onSubmit',
     defaultValues,
   });
 
-  const onSubmit = (data: FormInputs) => {
-    if (data.password !== data.passwordConfirm)
+  const onSubmit = async (userData: FormRegisterInputs) => {
+    const { passwordConfirm, ...userConf } = { ...userData };
+
+    if (userConf.password !== passwordConfirm)
       return setError('passwordConfirm', { message: 'Пароли должны совпадать' });
-    console.log(data);
+    console.log(userData);
+
+    const response = await instance.post('/users', userConf);
+    console.log(response.data);
   };
 
   return (
