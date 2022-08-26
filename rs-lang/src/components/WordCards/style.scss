@@ -1,0 +1,32 @@
+.word-cards{
+    display: flex;
+    max-width: 753px;
+    flex-wrap: wrap;
+    row-gap: 35px;
+    column-gap: 30px;
+}
+
+.card{
+    width: 230px;
+    height: 100px;
+    padding-top: 25px;
+    padding-left: 22px;
+    background: linear-gradient(180deg, rgba(239, 193, 246, 0.3) 0%, rgba(255, 202, 202, 0.2) 100%);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color .2s linear;
+
+    &__word{
+        font-size: 1.5rem;
+    }
+
+    &__word-translate{
+        font-size: 1rem;
+        margin-left: 12px;
+    }
+
+    &_active,
+    &:hover{
+        background-color: #F4F0E1;
+    }
+}

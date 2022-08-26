@@ -1,0 +1,106 @@
+@use '../../scss/variables';
+
+.card-full{
+    max-width: 424px;
+    padding: 0 10px 187px 35px;
+    background: #FFF4FB;
+    border-radius: 35px 0px 0px 187px;
+    height: max-content;
+}
+
+.card-empty{
+    width: 424px;
+    height: 676px;
+}
+
+.card{
+    &__img{
+        width: 380px;
+        height: 214px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        mask-image: url(../../assets/svg/rs-lang-mask.svg);
+        mask-repeat: no-repeat;
+        mask-position: center;
+    }
+
+    &-subtitle{
+        font-size: 1.875rem;
+        font-weight: 400;
+    }
+
+    &-subtext{
+        font-size: 1.375rem;
+        margin-bottom: 10px;
+    }
+
+    &-subtext-translate{
+        font-size: 1.125rem;
+        color: variables.$font-color-secondary;
+    }
+
+    &__word-text{
+        margin-bottom: 25px;
+    }
+    
+    &__word-transcript{
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        margin-bottom: 50px;
+    }
+
+    &__meaning{
+        margin-bottom: 30px;
+
+        & i{
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1,375rem;
+            color: #B569F1;
+        }
+    }
+
+    &__example{
+        & b{
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1,375rem;
+            color: #B569F1;
+        }
+    }
+}
+
+.subtitle-wrapper{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 15px;
+}
+
+.word{
+    font-size: 2rem;
+}
+
+.word-translate{
+    font-size: 1.5rem;
+    color: variables.$font-color-secondary;
+}
+
+.word-transcript{
+    font-size: 1.625rem;
+}
+
+.word-transcript-audio{
+    cursor: pointer;
+    transition: all .2s linear;
+
+    &:hover{
+        filter: opacity(0.6);
+    }
+}
+
+audio{
+    display: none;
+}

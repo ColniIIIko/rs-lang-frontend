@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { instance } from '../../axios/axiosConfig';
 import { fetchLogin } from '../../fetchRoutes/fetchAuth';
+import { FormLoginInputs } from '../../pages/Auth/types';
 import { RootState } from '../store';
 
 type AuthResponse = {
@@ -21,7 +22,7 @@ const initialState: AuthState = {
   status: 'loading',
 };
 
-export const fetchLoginThunk = createAsyncThunk('auth/login', fetchLogin);
+export const fetchLoginThunk = createAsyncThunk<AuthResponse, FormLoginInputs>('auth/login', fetchLogin);
 
 const authSlice = createSlice({
   name: 'auth',

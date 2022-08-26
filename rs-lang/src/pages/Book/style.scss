@@ -1,0 +1,65 @@
+.book{
+    max-width: 1300px;
+    padding: 0 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    padding-top: 25px;
+
+    &__img{
+        margin-left: 230px;
+        width: 543px;
+        height: 267px;
+        background-image: url(../../assets/svg/rs-lang-bg5.svg);
+    }
+
+    &__diffs{
+        display: flex;
+        flex-direction: column;
+        row-gap: 30px;
+    }
+    
+    &__cards{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.book-top{
+    display: flex;
+}
+
+.diff-name{
+    display: inline-flex;
+    width: 120px;
+    height: 45px;
+    background: #F4F0E1;
+    border-radius: 25px;
+    font-size: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    transition: all .2s linear;
+    cursor: pointer;
+}
+
+.diff-title{
+    font-size: 1.875rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.diff__sub-diffs{
+    display: flex;
+    column-gap: 30px;
+}
+
+input[type=radio]{
+    display: none;
+}
+
+input:checked ~ .diff-name{
+    background: #F2E1F4;
+}

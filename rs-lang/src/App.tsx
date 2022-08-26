@@ -6,6 +6,7 @@ import Main from './pages/Main/Main';
 import Register from './pages/Auth/Register';
 import Login from './pages/Auth/Login';
 import { Routes, Route } from 'react-router-dom';
+import Book from './pages/Book/Book';
 
 function App() {
   return (
@@ -17,6 +18,15 @@ function App() {
             <>
               <Header currentPage='Главная' />
               <Main />
+            </>
+          }
+        />
+        <Route
+          path='/book'
+          element={
+            <>
+              <Header currentPage='Учебник' />
+              <Book />
             </>
           }
         />

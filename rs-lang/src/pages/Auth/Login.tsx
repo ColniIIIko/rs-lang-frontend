@@ -2,11 +2,10 @@ import React from 'react';
 import './style.scss';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { instance } from '../../axios/axiosConfig';
 import { useAppDispatch } from '../../redux/hooks';
 import { fetchLoginThunk } from '../../redux/reducers/auth';
-import { AppDispatch } from '../../redux/store';
 import { FormLoginInputs } from './types';
+import { AppDispatch } from '../../redux/store';
 
 const defaultValues: FormLoginInputs = {
   email: '',
