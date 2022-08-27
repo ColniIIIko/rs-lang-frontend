@@ -65,11 +65,15 @@
     width: 764px;
     height: 695px;
     background-image: url(./../../assets/svg/rs-lang-bg4.svg);
-    margin-right: min(-10px, -10px - calc(100vw - 1280px));
-    left: -200px;
-    top: -25px;
+    margin-right: min(-80px, -80px - calc(100vw - 1280px));
+    left: -70px;
+    top: -100px;
     position: relative;
     z-index: 3;
+
+    @include mixins.media-mobile{
+        display: none;
+    }
 }
 
 .register-form{

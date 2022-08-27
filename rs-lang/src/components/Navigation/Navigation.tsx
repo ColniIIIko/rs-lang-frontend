@@ -22,7 +22,9 @@ function Navigation({ currentPage, pages }: NavigationProps) {
             <Link
               className={['navigation__elem', `${currentPage === page.pageName ? 'active' : ''}`].join(' ')}
               to={page.route}
-            >{`${page.pageName}${currentPage === page.pageName ? '*' : ''}`}</Link>
+            >
+              {page.pageName}
+            </Link>
           </li>
         ))}
       </ul>
