@@ -1,12 +1,13 @@
 import { useRef, useState } from 'react';
 
-export const usePagination = (defaultValue: number, maxValue: number, action: (page: number) => void) => {
-  const [value, setValue] = useState<number>(defaultValue);
-
+export const usePagination = (
+  value: number,
+  maxValue: number,
+  setValue: React.Dispatch<React.SetStateAction<number>>
+) => {
   const handleNext = () => {
     if (value <= maxValue - 1) {
       setValue(value + 1);
-      action(value + 1);
     }
 
     return value === maxValue;
@@ -15,7 +16,6 @@ export const usePagination = (defaultValue: number, maxValue: number, action: (p
   const handlePrev = () => {
     if (value !== 1) {
       setValue(value - 1);
-      action(value - 1);
     }
 
     return value === 1;
@@ -25,8 +25,6 @@ export const usePagination = (defaultValue: number, maxValue: number, action: (p
   const prevRef = useRef<HTMLDivElement>(null);
 
   return {
-    value,
-    setValue,
     handleNext,
     handlePrev,
     nextRef,
