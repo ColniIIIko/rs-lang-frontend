@@ -1,9 +1,16 @@
+@use '../../scss/mixins';
+
 .word-cards{
     display: flex;
     max-width: 753px;
     flex-wrap: wrap;
     row-gap: 35px;
     column-gap: 30px;
+    @include mixins.media-mobile{
+        row-gap: 20px;
+        column-gap: 3vw;
+        justify-content: center;
+    }
 }
 
 .card{
@@ -15,9 +22,17 @@
     border-radius: 6px;
     cursor: pointer;
     transition: background-color .2s linear;
+    @include mixins.media-mobile{
+        padding-top: 18px;
+        padding-left: 12px;
+        width: 45vw;
+    }
 
     &__word{
         font-size: 1.5rem;
+        @include mixins.media-mobile{
+            font-size: 1.4rem;
+        }
     }
 
     &__word-translate{
@@ -28,5 +43,23 @@
     &_active,
     &:hover{
         background-color: #F4F0E1;
+    }
+}
+
+.card__loading-wrapper{
+    width: 230px;
+    height: 100px;
+    @include mixins.media-mobile{
+        width: 45vw;
+    }
+}
+
+.card__loading{
+    width: 230px;
+    height: 100px;
+    rx: 6px;
+    ry: 6px;
+    @include mixins.media-mobile{
+        width: 45vw;
     }
 }

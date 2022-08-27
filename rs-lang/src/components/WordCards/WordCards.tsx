@@ -32,15 +32,9 @@ function WordCards({ setCurrentCard, isLoading, data }: Props) {
         : tempArr.map((_, index) => (
             <ContentLoader
               key={index}
-              width='230'
-              height='100'
+              className='card__loading-wrapper'
             >
-              <rect
-                width='230'
-                height='100'
-                rx='6'
-                ry='6'
-              />
+              <rect className='card__loading' />
             </ContentLoader>
           ))}
     </div>

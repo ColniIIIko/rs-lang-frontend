@@ -1,3 +1,5 @@
+@use '../../scss/mixins';
+
 .book{
     max-width: 1300px;
     padding: 0 10px;
@@ -14,6 +16,10 @@
         width: 543px;
         height: 267px;
         background-image: url(../../assets/svg/rs-lang-bg5.svg);
+
+        @include mixins.media-mobile{
+            display: none;
+        }
     }
 
     &__diffs{
@@ -25,11 +31,19 @@
     &__cards{
         display: flex;
         justify-content: space-between;
+        @include mixins.media-mobile{
+            flex-direction: column-reverse;
+            align-items: center;
+        }
     }
 }
 
 .book-top{
     display: flex;
+    @include mixins.media-mobile{
+        justify-content: center;
+        padding-bottom: 60px;
+    }
 }
 
 .diff-name{
@@ -43,17 +57,30 @@
     align-items: center;
     transition: all .2s linear;
     cursor: pointer;
+
+    @include mixins.media-mobile{
+        font-size: 1.3rem;
+        width: 110px;
+        height: 40px;
+    }
 }
 
 .diff-title{
     font-size: 1.875rem;
     font-weight: 500;
     margin-bottom: 10px;
+    @include mixins.media-mobile{
+        font-size: 1.7rem;
+    }
 }
 
 .diff__sub-diffs{
     display: flex;
     column-gap: 30px;
+    @include mixins.media-mobile{
+        column-gap: 20px;
+    }
+    
 }
 
 input[type=radio]{
