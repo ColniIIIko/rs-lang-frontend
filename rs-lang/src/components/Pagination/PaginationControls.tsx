@@ -15,12 +15,11 @@ const MAX_PAGE = 30;
 
 function PaginationControls({ setData, setLoading, group, endpoint }: Props) {
   const fetchData = async (page: number) => {
-    console.log(page);
     setLoading(true);
     const response = await instance.get<WordCard[]>(endpoint, {
       params: {
         group,
-        page,
+        page: page - 1,
       },
     });
     const data = response.data;
@@ -31,7 +30,7 @@ function PaginationControls({ setData, setLoading, group, endpoint }: Props) {
   const { value, handleNext, handlePrev, nextRef, prevRef } = usePagination(1, MAX_PAGE, fetchData);
 
   useEffect(() => {
-    fetchData(value - 1);
+    fetchData(value);
   }, [group]);
 
   return (
@@ -52,6 +51,7 @@ function PaginationControls({ setData, setLoading, group, endpoint }: Props) {
       </div>
       <span className='pagination-current'>{value}</span>
       <div
+        ref={nextRef}
         className='controls__next'
         onClick={async () => {
           if (await handleNext()) {

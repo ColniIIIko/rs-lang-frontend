@@ -3,19 +3,19 @@ import { useRef, useState } from 'react';
 export const usePagination = (defaultValue: number, maxValue: number, action: (page: number) => void) => {
   const [value, setValue] = useState<number>(defaultValue);
 
-  const handleNext = async () => {
+  const handleNext = () => {
     if (value <= maxValue - 1) {
       setValue(value + 1);
-      await action(value);
+      action(value + 1);
     }
 
     return value === maxValue;
   };
 
-  const handlePrev = async () => {
+  const handlePrev = () => {
     if (value !== 1) {
       setValue(value - 1);
-      await action(value);
+      action(value - 1);
     }
 
     return value === 1;
