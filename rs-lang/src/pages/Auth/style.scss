@@ -123,6 +123,23 @@
     color: #e659a7;
 }
 
+.form__auth-error{
+    font-size: 1.25rem;
+    margin-top: 10px;
+    border-radius: 6px;
+    background: #edcbf3;
+    color: #000;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    margin-left: 110px;
+
+    @include mixins.media-mobile{
+        margin-left: 0;
+    }
+}
+
 .btn{
     display: flex;
     cursor: pointer;

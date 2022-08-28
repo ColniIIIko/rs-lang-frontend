@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useAuth } from '../../hooks/useAuth';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import ButtonAuth from '../Buttons/ButtonAuth';
 import ButtonUser from '../Buttons/ButtonUser';
@@ -11,8 +12,7 @@ type HeaderProps = {
 };
 
 function Header({ currentPage }: HeaderProps) {
-  const isAuth = false;
-  const [isActive, setActive] = useState<boolean>(false);
+  const { isAuth } = useAuth();
   return (
     <div className='header-wrapper'>
       <header className='header'>
