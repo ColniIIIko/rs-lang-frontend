@@ -1,3 +1,4 @@
+@use '../../scss/variables';
 @use '../../scss/mixins';
 
 .book{
@@ -50,7 +51,7 @@
     display: inline-flex;
     width: 120px;
     height: 45px;
-    background: #F4F0E1;
+    background: variables.$bg-color-addition;
     border-radius: 25px;
     font-size: 1.5rem;
     justify-content: center;

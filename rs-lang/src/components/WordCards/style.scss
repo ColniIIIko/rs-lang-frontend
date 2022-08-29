@@ -1,3 +1,4 @@
+@use '../../scss/variables';
 @use '../../scss/mixins';
 
 .word-cards{
@@ -22,6 +23,7 @@
     border-radius: 6px;
     cursor: pointer;
     transition: background-color .2s linear;
+    position: relative;
     @include mixins.media-mobile{
         padding-top: 18px;
         padding-left: 12px;
@@ -42,7 +44,18 @@
 
     &_active,
     &:hover{
-        background-color: #F4F0E1;
+        background-color: variables.$bg-color-addition;
+    }
+
+    &_hard::after{
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        background-color: rgb(231, 169, 133);
+        border-radius: 0 6px 0 6px;
     }
 }
 

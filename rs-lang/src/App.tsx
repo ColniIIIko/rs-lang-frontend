@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       setLoading(true);
-      const user = JSON.parse(localStorage.getItem('user') || '') as AuthResponse | null;
+      const user = JSON.parse(localStorage.getItem('user') || '0') as AuthResponse | null;
       if (user) {
         try {
           const newUser = await fetchIsTokenValid(user);

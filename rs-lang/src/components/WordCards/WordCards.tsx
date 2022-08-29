@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import ContentLoader from 'react-content-loader';
-import { WordCard } from '../../pages/Book/types';
+import { WordCard, WordCardAggregated } from '../../pages/Book/types';
 import './style.scss';
 
 type Props = {
-  setCurrentCard: React.Dispatch<React.SetStateAction<WordCard | null>>;
-  data: WordCard[] | null;
+  setCurrentCard: React.Dispatch<React.SetStateAction<WordCard | WordCardAggregated | null>>;
+  data: WordCard[] | WordCardAggregated[] | null;
   isLoading: boolean;
 };
 
@@ -19,7 +19,9 @@ function WordCards({ setCurrentCard, isLoading, data }: Props) {
         ? data?.map((card) => (
             <div
               key={card.id}
-              className={activeId === card.id ? 'words-cards__card card card_active' : 'words-cards__card card'}
+              className={`${activeId === card.id ? 'words-cards__card card card_active' : 'words-cards__card card'}  ${
+                'userWord' in card && card.userWord.difficulty === 'difficult' ? 'card_hard' : ''
+              }`}
               onClick={() => {
                 setCurrentCard(card);
                 setActiveId(card.id);

@@ -3,15 +3,15 @@ import Card from '../../components/Card/Card';
 import Pagination from '../../components/Pagination/Pagination';
 import WordCards from '../../components/WordCards/WordCards';
 import WordsDiff from '../../components/WordsDiffs/WordsDiff';
-import { diffName, DiffsGroup, WordCard } from './types';
+import { diffName, DiffsGroup, WordCard, WordCardAggregated } from './types';
 import './style.scss';
 
 function Book() {
-  const isAuth = false;
   const [activeDiff, setActiveDiff] = useState<DiffsGroup>(DiffsGroup['normal-easy']);
+  const [isAction, setAction] = useState<boolean>(false);
 
-  const [cards, setCards] = useState<WordCard[] | null>(null);
-  const [currentCard, setCurrentCard] = useState<WordCard | null>(null);
+  const [cards, setCards] = useState<WordCard[] | WordCardAggregated[] | null>(null);
+  const [currentCard, setCurrentCard] = useState<WordCard | WordCardAggregated | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
 
   return (
@@ -29,7 +29,8 @@ function Book() {
       <section className='book__cards'>
         <Pagination
           diff={DiffsGroup[activeDiff] as diffName}
-          endpoint='/words'
+          isAction={isAction}
+          setAction={setAction}
           setData={setCards}
           setLoading={setLoading}
         >
@@ -39,7 +40,10 @@ function Book() {
             isLoading={isLoading}
           />
         </Pagination>
-        <Card data={currentCard} />
+        <Card
+          data={currentCard}
+          setAction={setAction}
+        />
       </section>
     </div>
   );

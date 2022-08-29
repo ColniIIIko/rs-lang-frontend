@@ -77,4 +77,5 @@ export const authReducer = authSlice.reducer;
 export const selectIsAuth = (state: RootState) => !!state.auth.data;
 export const selectIsLoading = (state: RootState) => state.auth.status === 'loading';
 export const selectIsError = (state: RootState) => state.auth.status === 'error';
+export const selectUserId = (state: RootState) => state.auth.data?.userId;
 export const { logout, setFromStorage } = authSlice.actions;

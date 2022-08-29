@@ -1,12 +1,22 @@
-import React, { useEffect, useRef } from 'react';
-import { WordCard } from '../../pages/Book/types';
+import React, { useEffect, useRef, useState } from 'react';
+import { fetchWordAddToDiff } from '../../fetchRoutes/fetchUserWords';
+import { WordCard, WordCardAggregated } from '../../pages/Book/types';
+import { useAppSelector } from '../../redux/hooks';
+import { selectIsAuth, selectUserId } from '../../redux/reducers/auth';
 import './style.scss';
 
 type Props = {
-  data: WordCard | null;
+  setAction: React.Dispatch<React.SetStateAction<boolean>>;
+  data: WordCard | WordCardAggregated | null;
 };
 
-function Card({ data }: Props) {
+function Card({ data, setAction }: Props) {
+  const isAuth = useAppSelector(selectIsAuth);
+  const userId = useAppSelector(selectUserId);
+  const [isDifficult, setDifficult] = useState<boolean>(
+    Boolean(data && 'userWord' in data && data.userWord.difficulty === 'difficult')
+  );
+
   const pMeaningRef = useRef<HTMLParagraphElement>(null);
   const pExampleRef = useRef<HTMLParagraphElement>(null);
 
@@ -19,6 +29,7 @@ function Card({ data }: Props) {
       pMeaningRef.current.innerHTML = data.textMeaning;
       pExampleRef.current.innerHTML = data.textExample;
     }
+    setDifficult(Boolean(data && 'userWord' in data && data.userWord.difficulty === 'difficult'));
   }, [data]);
 
   return data ? (
@@ -87,6 +98,22 @@ function Card({ data }: Props) {
         ></audio>
         <p className='example-text-translate card-subtext-translate'>{data.textExampleTranslate}</p>
       </div>
+      {isAuth && (
+        <div className='card__auth-controls'>
+          <button className='auth-controls__btn remove-btn'>удалить слово</button>
+          <button
+            className='auth-controls__btn add-to-diff'
+            disabled={isDifficult}
+            onClick={() => {
+              setAction(true);
+              fetchWordAddToDiff(userId!, data.id);
+              setDifficult(true);
+            }}
+          >
+            добавить в сложное
+          </button>
+        </div>
+      )}
     </div>
   ) : (
     <div className='card-full card-empty'></div>

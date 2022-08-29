@@ -15,6 +15,32 @@ export interface WordCard {
   textExampleTranslate: string;
 }
 
+export interface WordCardAggregated_ extends WordCard {
+  _id: string;
+  userWord: {
+    difficulty: string;
+  };
+}
+
+export interface WordCardAggregated extends WordCard {
+  userWord: {
+    difficulty: string;
+  };
+}
+// export type WordCardAggregated = Omit<WordCard, 'id'> & {
+//   _id: string;
+//   userWord: {
+//     difficulty: string;
+//   };
+// };
+
+export type WordCardAggregatedResponse = [
+  {
+    paginatedResults: WordCardAggregated_[];
+    totalCount: [{ count: number }];
+  }
+];
+
 export enum DiffsGroup {
   'normal-easy',
   'normal-medium',

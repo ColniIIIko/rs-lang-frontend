@@ -94,6 +94,12 @@
             color: #B569F1;
         }
     }
+
+    &__auth-controls{
+        padding-top: 20px;
+        display: flex;
+        column-gap: 25px;
+    }
 }
 
 .subtitle-wrapper{
@@ -139,4 +145,23 @@
 
 audio{
     display: none;
+}
+
+.auth-controls__btn{
+    background: linear-gradient(180deg, rgba(239, 193, 246, 0.3) 0%, rgba(255, 202, 202, 0.2) 100%);
+    border: none;
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 10px 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color .2s linear;
+
+    &:hover:not(:disabled){
+        background-color: variables.$bg-color-addition;
+    }
+
+    &:disabled{
+        cursor: default;
+    }
 }
