@@ -4,12 +4,22 @@ const instance = axios.create({
   baseURL: process.env.REACT_APP_DB,
 });
 
+let interceptor: number;
+
 const addToken = (token: string) => {
-  instance.interceptors.request.use((config) => {
+  interceptor = instance.interceptors.request.use((config) => {
     config.headers = {
       Authorization: `Bearer ${token}`,
     };
+
+    return config;
   });
 };
 
-export { instance, addToken };
+const removeToken = () => {
+  if (interceptor) {
+    instance.interceptors.request.eject(interceptor);
+  }
+};
+
+export { instance, addToken, removeToken };

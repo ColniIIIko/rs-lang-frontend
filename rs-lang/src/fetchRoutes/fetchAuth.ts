@@ -1,4 +1,4 @@
-import { instance } from '../axios/axiosConfig';
+import { instance, removeToken } from '../axios/axiosConfig';
 import { FormLoginInputs, FormRegisterInputs } from '../pages/Auth/types';
 
 type AuthResponse = {
@@ -45,6 +45,7 @@ export const fetchUser = async (userId: string): Promise<RegisterResponse | unde
 };
 
 export const fetchToken = async ({ refreshToken, userId }: AuthResponse): Promise<TokenResponse> => {
+  removeToken();
   const response = await instance.get(`/users/${userId}/tokens`, {
     headers: {
       Authorization: `Bearer ${refreshToken}`,
