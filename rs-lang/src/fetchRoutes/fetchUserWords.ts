@@ -4,10 +4,73 @@ import { store } from '../redux/store';
 
 type Params = { page: number; group: number };
 
-export const fetchWordAddToDiff = async (userId: string, wordId: string) => {
-  await instance.post(`/users/${userId}/words/${wordId}`, {
-    difficulty: 'difficult',
+export const fetchWordAddToDiff = async (
+  userId: string,
+  wordId: string,
+  currentOptions: WordCardAggregated['userWord'] | undefined
+) => {
+  const isUserWordExist = Boolean(currentOptions);
+  if (isUserWordExist) {
+    await instance.put(`/users/${userId}/words/${wordId}`, {
+      ...currentOptions,
+      difficulty: 'difficult',
+    });
+  } else {
+    await instance.post(`/users/${userId}/words/${wordId}`, {
+      difficulty: 'difficult',
+    });
+  }
+
+  const { stat } = store.getState();
+
+  await instance.put(`/users/${userId}/statistics`, stat.data);
+};
+
+export const fetchWordRemoveDiff = async (
+  userId: string,
+  wordId: string,
+  currentOptions: WordCardAggregated['userWord'] | undefined
+) => {
+  await instance.put(`/users/${userId}/words/${wordId}`, {
+    ...currentOptions,
+    difficulty: 'normal',
   });
+};
+
+export const fetchWordRemoveDeleted = async (
+  userId: string,
+  wordId: string,
+  currentOptions: WordCardAggregated['userWord'] | undefined
+) => {
+  await instance.put(`/users/${userId}/words/${wordId}`, {
+    ...currentOptions,
+    optional: {
+      isDeleted: false,
+    },
+  });
+};
+
+export const fetchWordAddToDeleted = async (
+  userId: string,
+  wordId: string,
+  currentOptions: WordCardAggregated['userWord'] | undefined
+) => {
+  const isUserWordExist = Boolean(currentOptions);
+
+  if (isUserWordExist) {
+    await instance.put(`/users/${userId}/words/${wordId}`, {
+      ...currentOptions,
+      optional: {
+        isDeleted: true,
+      },
+    });
+  } else {
+    await instance.post(`/users/${userId}/words/${wordId}`, {
+      optional: {
+        isDeleted: true,
+      },
+    });
+  }
 
   const { stat } = store.getState();
 
@@ -27,7 +90,13 @@ export const fetchWordsAggregated = async <T extends Params>(userId: string, par
   const response = await instance.get<WordCardAggregatedResponse>(`/users/${userId}/aggregatedWords`, {
     params: {
       wordsPerPage: 20,
-      filter: { $and: [{ page: params.page }, { group: params.group }] },
+      filter: {
+        $and: [
+          { 'userWord.optional.isDeleted': { $not: { $eq: true } } },
+          { page: params.page },
+          { group: params.group },
+        ],
+      },
     },
   });
   return WordCardAggregatedDecorator(response.data[0].paginatedResults);
@@ -47,7 +116,7 @@ export const fetchWordsAggregatedDeleted = async <T extends Params>(userId: stri
   const response = await instance.get<WordCardAggregatedResponse>(`/users/${userId}/aggregatedWords`, {
     params: {
       wordsPerPage: 20,
-      filter: { $and: [{ 'userWord.options.isDeleted': true }, { page: params.page }, { group: params.group }] },
+      filter: { $and: [{ 'userWord.optional.isDeleted': true }, { page: params.page }, { group: params.group }] },
     },
   });
   return WordCardAggregatedDecorator(response.data[0].paginatedResults);
@@ -57,7 +126,7 @@ export const fetchWordsAggregatedLearning = async <T extends Params>(userId: str
   const response = await instance.get<WordCardAggregatedResponse>(`/users/${userId}/aggregatedWords`, {
     params: {
       wordsPerPage: 20,
-      filter: { $and: [{ 'userWord.options.isLearning': true }, { page: params.page }, { group: params.group }] },
+      filter: { $and: [{ 'userWord.optional.isLearning': true }, { page: params.page }, { group: params.group }] },
     },
   });
   return WordCardAggregatedDecorator(response.data[0].paginatedResults);

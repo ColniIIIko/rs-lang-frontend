@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '../../components/Card/Card';
 import Pagination from '../../components/Pagination/Pagination';
 import WordCards from '../../components/WordCards/WordCards';
@@ -19,6 +19,10 @@ function Book() {
   const [cards, setCards] = useState<WordCard[] | WordCardAggregated[] | null>(null);
   const [currentCard, setCurrentCard] = useState<WordCard | WordCardAggregated | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (cards) setCurrentCard(cards[0]);
+  }, [cards]);
 
   return (
     <div className='book'>
@@ -73,6 +77,8 @@ function Book() {
         <Card
           data={currentCard}
           setAction={setAction}
+          option={option}
+          isBook={isBook}
         />
       </section>
     </div>

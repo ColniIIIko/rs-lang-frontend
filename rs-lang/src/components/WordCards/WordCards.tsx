@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import { WordCard, WordCardAggregated } from '../../pages/Book/types';
 import './style.scss';
@@ -12,6 +12,10 @@ type Props = {
 function WordCards({ setCurrentCard, isLoading, data }: Props) {
   const [activeId, setActiveId] = useState<string>('');
   const tempArr: number[] = new Array(20).fill(0);
+
+  useEffect(() => {
+    if (data) setActiveId(data[0].id);
+  }, [data]);
 
   if (data && data.length < 20) {
     data = [...data, ...new Array(20 - data.length).fill(0)];
