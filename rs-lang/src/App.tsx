@@ -12,6 +12,7 @@ import { AuthResponse, logout, setFromStorage } from './redux/reducers/auth';
 import { fetchIsTokenValid } from './fetchRoutes/fetchAuth';
 import { addToken } from './axios/axiosConfig';
 import Loader from './components/Loader/Loader';
+import { fetchStatThunk } from './redux/reducers/stat';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ function App() {
           } else {
             dispatch(setFromStorage(user));
             addToken(user.token);
+            await dispatch(fetchStatThunk(user.userId));
           }
         } catch {
           dispatch(logout());

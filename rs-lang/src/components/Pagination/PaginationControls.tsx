@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { instance } from '../../axios/axiosConfig';
-import { fetchWordsAggregated, fetchWordsUnAuth } from '../../fetchRoutes/fetchUserWords';
+import {
+  fetchWordsAggregated,
+  fetchWordsAggregatedDeleted,
+  fetchWordsAggregatedDiff,
+  fetchWordsAggregatedLearning,
+  fetchWordsUnAuth,
+} from '../../fetchRoutes/fetchUserWords';
 import { usePagination } from '../../hooks/usePagination';
-import { DiffsGroup, WordCard } from '../../pages/Book/types';
+import { DiffsGroup, WordCard, WordsGroup } from '../../pages/Book/types';
 import { useAppSelector } from '../../redux/hooks';
 import { selectIsAuth, selectUserId } from '../../redux/reducers/auth';
 import './style.scss';
 
 type Props = {
+  isBook: boolean;
   isAction: boolean;
+  option: WordsGroup;
   setAction: React.Dispatch<React.SetStateAction<boolean>>;
   group: DiffsGroup;
   setData: React.Dispatch<React.SetStateAction<WordCard[] | null>>;
@@ -22,10 +29,36 @@ type Params = {
 
 const MAX_PAGE = 30;
 
-function PaginationControls({ setData, setLoading, setAction, isAction, group }: Props) {
+function PaginationControls({ setData, setLoading, setAction, isAction, option, isBook, group }: Props) {
   const [page, setPage] = useState<number>(1);
   const isAuth = useAppSelector(selectIsAuth);
   const userId = useAppSelector(selectUserId);
+
+  const handleFetch = async () => {
+    // if (isAuth && isBook) {
+    //   return await fetchWordsAggregated<Params>(userId!, { group, page: page - 1 });
+    // }
+    // if (isAuth && !isBook) {
+    //   return await fetchWordsAggregatedDiff<Params>(userId!, { group, page: page - 1 });
+    // }
+
+    if (isAuth) {
+      if (isBook) {
+        return await fetchWordsAggregated<Params>(userId!, { group, page: page - 1 });
+      }
+
+      switch (option) {
+        case WordsGroup['difficult']:
+          return await fetchWordsAggregatedDiff<Params>(userId!, { group, page: page - 1 });
+        case WordsGroup['deleted']:
+          return await fetchWordsAggregatedDeleted<Params>(userId!, { group, page: page - 1 });
+        case WordsGroup['learning']:
+          return await fetchWordsAggregatedLearning<Params>(userId!, { group, page: page - 1 });
+      }
+    }
+
+    return await fetchWordsUnAuth<Params>({ group, page: page - 1 });
+  };
 
   const fetchData = async (page: number) => {
     setLoading(true);
@@ -36,9 +69,7 @@ function PaginationControls({ setData, setLoading, setAction, isAction, group }:
     //   },
     // });
     // const data = response.data;
-    const data = isAuth
-      ? await fetchWordsAggregated<Params>(userId!, { group, page: page - 1 })
-      : await fetchWordsUnAuth<Params>({ group, page: page - 1 });
+    const data = await handleFetch();
     setLoading(false);
     setData(data);
   };
@@ -48,7 +79,7 @@ function PaginationControls({ setData, setLoading, setAction, isAction, group }:
   useEffect(() => {
     setAction(false);
     fetchData(page);
-  }, [group, page, isAction]);
+  }, [group, page, isAction, isBook, option]);
 
   return (
     <div className='pagination__controls'>

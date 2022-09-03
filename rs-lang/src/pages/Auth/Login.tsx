@@ -9,6 +9,7 @@ import { Navigate } from 'react-router';
 import { useAuth } from '../../hooks/useAuth';
 import Loader from '../../components/Loader/Loader';
 import { addToken } from '../../axios/axiosConfig';
+import { fetchStatThunk } from '../../redux/reducers/stat';
 
 const defaultValues: FormLoginInputs = {
   email: '',
@@ -23,8 +24,7 @@ function Login() {
   const {
     register,
     handleSubmit,
-    formState: { isValid, errors },
-    setError,
+    formState: { errors },
   } = useForm<FormLoginInputs>({
     mode: 'onSubmit',
     defaultValues,
@@ -35,11 +35,12 @@ function Login() {
   const { isAuth, isError, isLoading } = useAuth();
 
   const onSubmit = async (userConf: FormLoginInputs) => {
-    const data = await dispatch(fetchLoginThunk(userConf));
-    if (data.meta.requestStatus === 'fulfilled') {
-      const payload = data.payload as AuthResponse;
-      payload && localStorage.setItem('user', JSON.stringify(payload));
-      addToken(payload.token);
+    const userData = await dispatch(fetchLoginThunk(userConf));
+    if (userData.meta.requestStatus === 'fulfilled') {
+      const userPayload = userData.payload as AuthResponse;
+      addToken(userPayload.token);
+      await dispatch(fetchStatThunk(userPayload.userId));
+      userPayload && localStorage.setItem('user', JSON.stringify(userPayload));
     }
   };
 

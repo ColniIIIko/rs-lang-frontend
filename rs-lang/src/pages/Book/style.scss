@@ -37,7 +37,35 @@
             align-items: center;
         }
     }
+
+    &__heading{
+        display: flex;
+        column-gap: 10px;
+        margin-bottom: 20px;
+    }
 }
+
+.heading__title{
+    border: none;
+    background-color: #FFF;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #606060;
+    cursor: pointer;
+    transition: all .1s linear;
+
+    &_active{
+        color: #000;
+    }
+
+    &:first-child::after{
+        content: "|";
+        padding-left: 10px;
+        color: #606060;
+    }
+}
+
+
 
 .book-top{
     display: flex;
@@ -67,7 +95,7 @@
 }
 
 .diff-title{
-    font-size: 1.875rem;
+    font-size: 1.75rem;
     font-weight: 500;
     margin-bottom: 10px;
     @include mixins.media-mobile{

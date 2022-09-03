@@ -19,12 +19,22 @@ export interface WordCardAggregated_ extends WordCard {
   _id: string;
   userWord: {
     difficulty: string;
+    optional?: {
+      isDeleted: boolean;
+      isLearning: boolean;
+      isLearned: boolean;
+    };
   };
 }
 
 export interface WordCardAggregated extends WordCard {
   userWord: {
     difficulty: string;
+    optional?: {
+      isDeleted: boolean;
+      isLearning: boolean;
+      isLearned: boolean;
+    };
   };
 }
 // export type WordCardAggregated = Omit<WordCard, 'id'> & {
@@ -41,6 +51,18 @@ export type WordCardAggregatedResponse = [
   }
 ];
 
+export interface UserStat {
+  learnedWords: number;
+  optional: UserStatOptions;
+}
+
+export interface UserStatOptions {
+  deletedCount: number;
+  learningCount: number;
+  difficultCount: number;
+  learnedCount: number;
+}
+
 export enum DiffsGroup {
   'normal-easy',
   'normal-medium',
@@ -50,4 +72,12 @@ export enum DiffsGroup {
   'advanced-hard',
 }
 
+export enum WordsGroup {
+  'deleted',
+  'learning',
+  'difficult',
+  'learned',
+}
+
 export type diffName = keyof typeof DiffsGroup;
+export type wordsOptsName = keyof typeof WordsGroup;

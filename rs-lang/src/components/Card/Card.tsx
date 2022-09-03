@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { fetchWordAddToDiff } from '../../fetchRoutes/fetchUserWords';
 import { WordCard, WordCardAggregated } from '../../pages/Book/types';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectIsAuth, selectUserId } from '../../redux/reducers/auth';
+import { updateStatDifficult } from '../../redux/reducers/stat';
 import './style.scss';
 
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
 function Card({ data, setAction }: Props) {
   const isAuth = useAppSelector(selectIsAuth);
   const userId = useAppSelector(selectUserId);
+  const dispatch = useAppDispatch();
   const [isDifficult, setDifficult] = useState<boolean>(
     Boolean(data && 'userWord' in data && data.userWord.difficulty === 'difficult')
   );
@@ -105,8 +107,9 @@ function Card({ data, setAction }: Props) {
             className='auth-controls__btn add-to-diff'
             disabled={isDifficult}
             onClick={() => {
-              setAction(true);
               fetchWordAddToDiff(userId!, data.id);
+              dispatch(updateStatDifficult(1));
+              setAction(true);
               setDifficult(true);
             }}
           >

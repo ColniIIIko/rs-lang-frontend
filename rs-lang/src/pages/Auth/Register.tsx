@@ -9,6 +9,7 @@ import { useAppDispatch } from '../../redux/hooks';
 import { AuthResponse, fetchRegisterThunk } from '../../redux/reducers/auth';
 import { Navigate } from 'react-router';
 import Loader from '../../components/Loader/Loader';
+import { fetchStatThunk } from '../../redux/reducers/stat';
 
 const defaultValues: FormRegisterInputs = {
   email: '',
@@ -43,9 +44,10 @@ function Register() {
 
     const data = await dispatch(fetchRegisterThunk(userConf));
     if (data.meta.requestStatus === 'fulfilled') {
-      const payload = data.payload as AuthResponse;
-      payload && localStorage.setItem('user', JSON.stringify(payload));
-      addToken(payload.token);
+      const userPayload = data.payload as AuthResponse;
+      userPayload && localStorage.setItem('user', JSON.stringify(userPayload));
+      addToken(userPayload.token);
+      await dispatch(fetchStatThunk(userPayload.userId));
     }
   };
 
