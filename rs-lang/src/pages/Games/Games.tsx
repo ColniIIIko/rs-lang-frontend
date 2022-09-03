@@ -1,0 +1,50 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { WordCard, WordCardAggregated } from '../Book/types';
+import './style.scss';
+
+type Props = {
+  state: {
+    fromBook: boolean;
+    data?: WordCard[] | WordCardAggregated[] | null;
+  };
+};
+
+function Games({ state }: Props) {
+  return (
+    <section className={`book__games ${!state.fromBook ? 'full-height' : ''}`}>
+      {state.fromBook && (
+        <div className='book__games-intro'>
+          <h3 className='games-title'>Игры</h3>
+          <p className='games-subtitle'>Закрепи знания в приятной форме</p>
+        </div>
+      )}
+      <div className='book__games-list'>
+        <div className='book__games__savannah book-game'>
+          <Link
+            to='/games/audio-quest'
+            state={state}
+          >
+            <div className='savannah-link game-link'>
+              <h3 className='game-title'>Аудиовызов</h3>
+              <p className='game-subtitle'>Попробуй понять какое слово произнесено</p>
+            </div>
+          </Link>
+        </div>
+        <div className='book__games__audio-quest book-game'>
+          <Link
+            to='/games/savannah'
+            state={state}
+          >
+            <div className='audio-quest-link game-link'>
+              <h3 className='game-title'>Саванна</h3>
+              <p className='game-subtitle'>Выбери правильный перевод падающего вниз слова</p>
+            </div>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default Games;

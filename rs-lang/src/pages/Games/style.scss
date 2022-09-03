@@ -1,0 +1,116 @@
+@use '../../scss/mixins';
+
+.full-height{
+    max-width: 1300px;
+    padding: 0 10px;
+    margin: 0 auto;
+    height: calc(100vh - 167px);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.book__games{
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    &-intro{
+        margin-bottom: 45px;
+    }
+
+    &-list{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+
+        @include mixins.media-tablet{
+            flex-direction: column;
+            justify-content: center;
+            row-gap: 20px;
+        }
+    }
+
+    &__savannah{
+        width: 415px;
+        height: 275px;
+        background-image: url(../../assets/svg/rs-lang-bg6.svg);
+        animation: 5s linear infinite floating;
+    }
+
+    &__audio-quest{
+        width: 435px;
+        height: 305px;
+        background-image: url(../../assets/svg/rs-lang-bg7.svg);
+        animation: 5s linear infinite floating-reverse;
+    }
+}
+
+.games-title{
+    font-size: 2rem;
+}
+
+.games-subtitle{
+    font-size: 1.25rem;
+}
+
+.game-link{
+    color: #000;
+}
+
+.game-title{
+    font-size: 1.75rem;
+}
+
+.game-subtitle{
+    font-size: 1.125rem;
+    max-width: 230px;
+    padding-left: 20px;
+}
+
+.savannah-link{
+   position: relative;
+   top:100px;
+   left: 100px;
+}
+
+.audio-quest-link{
+    position: relative;
+    top:20px;
+    left: 105px;
+    @include mixins.media-tablet{
+        top:30px;
+        left: 85px;
+    }
+}
+
+@keyframes floating {
+    0%{
+        transform: translateY(10px);
+    }
+
+    50%{
+        transform: translateY(-10px);
+    }
+
+    100%{
+        transform: translateY(10px);
+    }
+
+}
+
+@keyframes floating-reverse {
+    0%{
+        transform: translateY(-10px);
+    }
+
+    50%{
+        transform: translateY(10px);
+    }
+
+    100%{
+        transform: translateY(-10px);
+    }
+
+}
+

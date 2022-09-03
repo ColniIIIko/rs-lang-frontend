@@ -8,6 +8,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectIsAuth } from '../../redux/reducers/auth';
 import './style.scss';
 import DictionaryOptions from '../../components/DictionaryOptions/DictionaryOptions';
+import Games from '../Games/Games';
 
 function Book() {
   const [activeDiff, setActiveDiff] = useState<DiffsGroup>(DiffsGroup['normal-easy']);
@@ -81,6 +82,7 @@ function Book() {
           isBook={isBook}
         />
       </section>
+      <Games state={{ fromBook: true, data: cards }} />
     </div>
   );
 }

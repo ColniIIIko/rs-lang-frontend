@@ -13,6 +13,9 @@ import { fetchIsTokenValid } from './fetchRoutes/fetchAuth';
 import { addToken } from './axios/axiosConfig';
 import Loader from './components/Loader/Loader';
 import { fetchStatThunk } from './redux/reducers/stat';
+import Games from './pages/Games/Games';
+import Savannah from './pages/Games/Savannah';
+import AudioQuest from './pages/Games/AudioQuest';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -80,6 +83,33 @@ function App() {
             <>
               <AuthHeader />
               <Register />
+            </>
+          }
+        />
+        <Route
+          path='/games'
+          element={
+            <>
+              <Header currentPage='Игры' />
+              <Games state={{ fromBook: false }} />
+            </>
+          }
+        />
+        <Route
+          path='/games/savannah'
+          element={
+            <>
+              <Header currentPage='Игры' />
+              <Savannah />
+            </>
+          }
+        />
+        <Route
+          path='/games/audio-quest'
+          element={
+            <>
+              <Header currentPage='Игры' />
+              <AudioQuest />
             </>
           }
         />
