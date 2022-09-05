@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { fetchUserUpdateStat } from '../../../fetchRoutes/fetchUserStats';
+import { fetchWordUpdateOptions } from '../../../fetchRoutes/fetchUserWords';
 import { useCountDown } from '../../../hooks/useCountDown';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { selectIsAuth, selectUserId } from '../../../redux/reducers/auth';
+import { fetchStatThunk } from '../../../redux/reducers/stat';
 import { pickRandomFromArray } from '../../../util/pickRandomFromArray';
+import { prepareUserWordStat } from '../../../util/prepareUserWordStat';
 import { shuffle } from '../../../util/shuffle';
 import Statistics from '../components/Statistics';
 import { gameState, gameWord } from '../types';
@@ -17,6 +23,10 @@ function SprintGame({ gameState, setGameState }: Props) {
   const [words, setWords] = useState(shuffle<gameWord>(gameState.words!));
   const [currentAnswer, setCurrentAnswer] = useState<gameWord>(gameState.words![0]);
 
+  const isAuth = useAppSelector(selectIsAuth);
+  const userId = useAppSelector(selectUserId);
+  const dispatch = useAppDispatch();
+
   const { counter } = useCountDown(30, () => setEnd(true));
   const imgIsCorrectRef = useRef<HTMLImageElement>(null);
 
@@ -28,6 +38,20 @@ function SprintGame({ gameState, setGameState }: Props) {
   useEffect(() => {
     setCurrentAnswer(Math.random() > 0.5 ? words[currentIndex] : words[Math.round(Math.random() * 19)]);
   }, [currentIndex]);
+
+  useEffect(() => {
+    const sendData = async () => {
+      if (isEnd && isAuth) {
+        const data = prepareUserWordStat(words.slice(0, currentIndex + 1), 'sprint');
+        fetchUserUpdateStat(userId!, data.user);
+        data.words.forEach((word) => {
+          fetchWordUpdateOptions(userId!, word.id, word.userWord);
+        });
+      }
+    };
+
+    sendData().then(() => dispatch(fetchStatThunk(userId!)));
+  }, [isEnd]);
 
   return (
     <div className='sprint-game'>

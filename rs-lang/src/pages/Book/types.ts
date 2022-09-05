@@ -26,7 +26,7 @@ export interface WordCardAggregated_ extends WordCard {
       isLearning?: boolean;
       isLearned?: boolean;
       games?: {
-        savannah?: wordGameStatistics;
+        sprint?: wordGameStatistics;
         audioQuest?: wordGameStatistics;
         correctAnswersStreak: number;
       };
@@ -36,14 +36,14 @@ export interface WordCardAggregated_ extends WordCard {
 
 export interface WordCardAggregated extends WordCard {
   userWord: {
-    difficulty?: string;
-    optional?: {
-      isDeleted?: boolean;
-      isLearning?: boolean;
-      isLearned?: boolean;
-      games?: {
-        savannah?: wordGameStatistics;
-        audioQuest?: wordGameStatistics;
+    difficulty: string;
+    optional: {
+      isDeleted: boolean;
+      isLearning: boolean;
+      isLearned: boolean;
+      games: {
+        sprint: wordGameStatistics;
+        audioQuest: wordGameStatistics;
         correctAnswersStreak: number;
       };
     };
@@ -73,6 +73,10 @@ export interface UserStatOptions {
   learningCount: number;
   difficultCount: number;
   learnedCount: number;
+  games?: {
+    sprint: wordGameStatistics;
+    audioQuest: wordGameStatistics;
+  };
 }
 
 export enum DiffsGroup {

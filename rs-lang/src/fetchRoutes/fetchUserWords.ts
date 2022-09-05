@@ -4,6 +4,18 @@ import { store } from '../redux/store';
 
 type Params = { page: number; group: number };
 
+export const fetchWordUpdateOptions = async (
+  userId: string,
+  wordId: string,
+  options: WordCardAggregated['userWord'] | undefined
+) => {
+  try {
+    await instance.put(`/users/${userId}/words/${wordId}`, options);
+  } catch {
+    await instance.post(`/users/${userId}/words/${wordId}`, options);
+  }
+};
+
 export const fetchWordAddToDiff = async (
   userId: string,
   wordId: string,
@@ -91,7 +103,7 @@ const WordCardAggregatedDecorator = (words: WordCardAggregated_[]): WordCardAggr
             isLearned: false,
             isLearning: false,
             games: {
-              savannah: {
+              sprint: {
                 correctAnswers: 0,
                 wrongAnswers: 0,
               },
@@ -114,7 +126,7 @@ const WordCardAggregatedDecorator = (words: WordCardAggregated_[]): WordCardAggr
             isLearned: false,
             isLearning: false,
             games: {
-              savannah: {
+              sprint: {
                 correctAnswers: 0,
                 wrongAnswers: 0,
               },
@@ -135,7 +147,7 @@ const WordCardAggregatedDecorator = (words: WordCardAggregated_[]): WordCardAggr
           optional: {
             ...newWord.userWord.optional,
             games: {
-              savannah: {
+              sprint: {
                 correctAnswers: 0,
                 wrongAnswers: 0,
               },
@@ -149,7 +161,7 @@ const WordCardAggregatedDecorator = (words: WordCardAggregated_[]): WordCardAggr
         },
       };
     }
-    return newWord;
+    return newWord as WordCardAggregated;
   });
 };
 
@@ -160,6 +172,7 @@ export const fetchWordsAggregated = async <T extends Params>(userId: string, par
       filter: {
         $and: [
           { 'userWord.optional.isDeleted': { $not: { $eq: true } } },
+          { 'userWord.optional.isLearned': { $not: { $eq: true } } },
           { page: params.page },
           { group: params.group },
         ],

@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { fetchUserUpdateStat } from '../../../fetchRoutes/fetchUserStats';
+import { fetchWordUpdateOptions } from '../../../fetchRoutes/fetchUserWords';
+import { useAppSelector } from '../../../redux/hooks';
+import { selectIsAuth, selectUserId } from '../../../redux/reducers/auth';
 import { pickRandomFromArray } from '../../../util/pickRandomFromArray';
+import { prepareUserWordStat } from '../../../util/prepareUserWordStat';
 import { shuffle } from '../../../util/shuffle';
 import Statistics from '../components/Statistics';
 import { gameState, gameWord } from '../types';
@@ -17,6 +22,9 @@ function AudioQuestGame({ gameState, setGameState }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [words, setWords] = useState(shuffle<gameWord>(gameState.words!));
 
+  const isAuth = useAppSelector(selectIsAuth);
+  const userId = useAppSelector(selectUserId);
+
   const handleNext = () => {
     if (currentIndex === 19) setEnd(true);
     else setCurrentIndex((prev) => prev + 1);
@@ -26,6 +34,16 @@ function AudioQuestGame({ gameState, setGameState }: Props) {
     audioController.src = `${process.env.REACT_APP_DB}/${words[currentIndex].data.audio}`;
     audioController.play();
   }, [currentIndex]);
+
+  useEffect(() => {
+    if (isEnd && isAuth) {
+      const data = prepareUserWordStat(words.slice(0, currentIndex + 1), 'sprint');
+      fetchUserUpdateStat(userId!, data.user);
+      data.words.forEach((word) => {
+        fetchWordUpdateOptions(userId!, word.id, word.userWord);
+      });
+    }
+  }, [isEnd]);
 
   return (
     <div className='audio-quest-game'>
