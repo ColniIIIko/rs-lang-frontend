@@ -21,13 +21,12 @@ export const fetchWordAddToDiff = async (
   wordId: string,
   currentOptions: WordCardAggregated['userWord'] | undefined
 ) => {
-  const isUserWordExist = Boolean(currentOptions);
-  if (isUserWordExist) {
+  try {
     await instance.put(`/users/${userId}/words/${wordId}`, {
       ...currentOptions,
       difficulty: 'difficult',
     });
-  } else {
+  } catch {
     await instance.post(`/users/${userId}/words/${wordId}`, {
       difficulty: 'difficult',
     });
@@ -69,14 +68,14 @@ export const fetchWordAddToDeleted = async (
 ) => {
   const isUserWordExist = Boolean(currentOptions);
 
-  if (isUserWordExist) {
+  try {
     await instance.put(`/users/${userId}/words/${wordId}`, {
       ...currentOptions,
       optional: {
         isDeleted: true,
       },
     });
-  } else {
+  } catch {
     await instance.post(`/users/${userId}/words/${wordId}`, {
       optional: {
         isDeleted: true,

@@ -11,20 +11,19 @@ type Props = {
 
 function WordCards({ setCurrentCard, isLoading, data }: Props) {
   const [activeId, setActiveId] = useState<string>('');
+  const [tempData, setTempData] = useState<typeof data>(null);
   const tempArr: number[] = new Array(20).fill(0);
-
   useEffect(() => {
+    if (data && data.length < 20) {
+      setTempData([...data, ...new Array(20 - data.length).fill(0)]);
+    }
     if (data) setActiveId(data[0].id);
   }, [data]);
-
-  if (data && data.length < 20) {
-    data = [...data, ...new Array(20 - data.length).fill(0)];
-  }
 
   return (
     <div className='word-cards'>
       {!isLoading
-        ? data?.map((card, index) =>
+        ? tempData?.map((card, index) =>
             card ? (
               <div
                 key={card.id}

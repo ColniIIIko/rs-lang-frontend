@@ -31,7 +31,7 @@ function SprintGame({ gameState, setGameState }: Props) {
   const imgIsCorrectRef = useRef<HTMLImageElement>(null);
 
   const handleNext = () => {
-    if (currentIndex === 19) setEnd(true);
+    if (currentIndex === words.length - 1) setEnd(true);
     else setCurrentIndex((prev) => prev + 1);
   };
 

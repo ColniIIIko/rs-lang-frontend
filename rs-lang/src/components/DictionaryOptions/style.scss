@@ -17,7 +17,7 @@
     width: 180px;
     background: linear-gradient(112.76deg, #E5FFCB 19.22%, rgba(251, 212, 184, 0.59) 117.06%);
     border-radius: 10px;
-    padding: 10px 0px 0px 10px;
+    padding: 10px 0px 0px 15px;
     opacity: 0.6;
     transition: opacity .2s linear;
     cursor: pointer;
@@ -32,14 +32,14 @@
     }
 
     &__title{
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         @include mixins.media-mobile{
             font-size: 1.125rem;
         }
     }
 
     &__amount{
-        font-size: 1.2rem;
+        font-size: 1rem;
         padding-left: 20px;
         @include mixins.media-mobile{
             font-size: .95rem;

@@ -20,6 +20,16 @@ export const fetchUserGetStat = async (userId: string) => {
         learningCount: 0,
         difficultCount: 0,
         learnedCount: 0,
+        games: {
+          sprint: {
+            correctAnswers: 0,
+            wrongAnswers: 0,
+          },
+          audioQuest: {
+            correctAnswers: 0,
+            wrongAnswers: 0,
+          },
+        },
       },
     });
     return { learnedWords, optional };

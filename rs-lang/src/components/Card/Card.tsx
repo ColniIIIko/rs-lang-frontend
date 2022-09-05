@@ -16,7 +16,6 @@ type Props = {
 
 function Card({ data, option, isBook, setAction }: Props) {
   const isAuth = useAppSelector(selectIsAuth);
-
   const pMeaningRef = useRef<HTMLParagraphElement>(null);
   const pExampleRef = useRef<HTMLParagraphElement>(null);
 
@@ -98,13 +97,36 @@ function Card({ data, option, isBook, setAction }: Props) {
         <p className='example-text-translate card-subtext-translate'>{data.textExampleTranslate}</p>
       </div>
       {isAuth && (
-        <CardControls
-          data={(data as WordCardAggregated).userWord}
-          setAction={setAction}
-          cardId={data.id}
-          option={option}
-          isBook={isBook}
-        />
+        <>
+          <CardControls
+            data={(data as WordCardAggregated).userWord}
+            setAction={setAction}
+            cardId={data.id}
+            option={option}
+            isBook={isBook}
+          />
+          <div className='card__stat'>
+            <p className='stat__title'>Ответы в играх</p>
+            <div className='stat__games'>
+              <div className='stat__game-sprint stat__game'>
+                <p className='stat__game-title'>Спринт</p>
+                <p className='stat__game-stat'>
+                  {(data as WordCardAggregated).userWord.optional.games.sprint.correctAnswers} из{' '}
+                  {(data as WordCardAggregated).userWord.optional.games.sprint.correctAnswers +
+                    (data as WordCardAggregated).userWord.optional.games.sprint.wrongAnswers}
+                </p>
+              </div>
+              <div className='stat__game-audio-quest stat__game'>
+                <p className='stat__game-title'>Аудиовызов</p>
+                <p className='stat__game-stat'>
+                  {(data as WordCardAggregated).userWord.optional.games.audioQuest.correctAnswers} из{' '}
+                  {(data as WordCardAggregated).userWord.optional.games.audioQuest.correctAnswers +
+                    (data as WordCardAggregated).userWord.optional.games.audioQuest.wrongAnswers}
+                </p>
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </div>
   ) : (

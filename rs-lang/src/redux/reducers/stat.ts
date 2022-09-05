@@ -16,6 +16,16 @@ const initialState: StatState = {
       learningCount: 0,
       difficultCount: 0,
       learnedCount: 0,
+      games: {
+        sprint: {
+          correctAnswers: 0,
+          wrongAnswers: 0,
+        },
+        audioQuest: {
+          correctAnswers: 0,
+          wrongAnswers: 0,
+        },
+      },
     },
   },
   status: 'loaded',

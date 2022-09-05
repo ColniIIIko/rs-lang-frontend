@@ -73,7 +73,7 @@ export interface UserStatOptions {
   learningCount: number;
   difficultCount: number;
   learnedCount: number;
-  games?: {
+  games: {
     sprint: wordGameStatistics;
     audioQuest: wordGameStatistics;
   };

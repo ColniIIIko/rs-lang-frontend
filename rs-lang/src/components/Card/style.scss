@@ -100,6 +100,10 @@
         display: flex;
         column-gap: 25px;
     }
+
+    &__stat{
+        padding-top: 20px;
+    }
 }
 
 .subtitle-wrapper{
@@ -163,5 +167,37 @@ audio{
 
     &:disabled{
         cursor: default;
+    }
+}
+
+.stat{
+    &__title{
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+
+    &__games{
+        padding-top: 10px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    &__game{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &-title{
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: linear-gradient(180deg, rgba(239, 193, 246, 0.3) 0%, rgba(255, 202, 202, 0.2) 100%);
+            font-size: 1rem;
+        }
+
+        &-stat{
+            padding-top: 5px;
+            font-size: 1rem;
+        }
     }
 }

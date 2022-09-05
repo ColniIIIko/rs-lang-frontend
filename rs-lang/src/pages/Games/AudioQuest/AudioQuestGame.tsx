@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { fetchUserUpdateStat } from '../../../fetchRoutes/fetchUserStats';
 import { fetchWordUpdateOptions } from '../../../fetchRoutes/fetchUserWords';
-import { useAppSelector } from '../../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { selectIsAuth, selectUserId } from '../../../redux/reducers/auth';
+import { fetchStatThunk } from '../../../redux/reducers/stat';
 import { pickRandomFromArray } from '../../../util/pickRandomFromArray';
 import { prepareUserWordStat } from '../../../util/prepareUserWordStat';
 import { shuffle } from '../../../util/shuffle';
@@ -24,9 +25,10 @@ function AudioQuestGame({ gameState, setGameState }: Props) {
 
   const isAuth = useAppSelector(selectIsAuth);
   const userId = useAppSelector(selectUserId);
+  const dispatch = useAppDispatch();
 
   const handleNext = () => {
-    if (currentIndex === 19) setEnd(true);
+    if (currentIndex === words.length - 1) setEnd(true);
     else setCurrentIndex((prev) => prev + 1);
   };
 
@@ -36,13 +38,17 @@ function AudioQuestGame({ gameState, setGameState }: Props) {
   }, [currentIndex]);
 
   useEffect(() => {
-    if (isEnd && isAuth) {
-      const data = prepareUserWordStat(words.slice(0, currentIndex + 1), 'sprint');
-      fetchUserUpdateStat(userId!, data.user);
-      data.words.forEach((word) => {
-        fetchWordUpdateOptions(userId!, word.id, word.userWord);
-      });
-    }
+    const sendData = async () => {
+      if (isEnd && isAuth) {
+        const data = prepareUserWordStat(words.slice(0, currentIndex + 1), 'sprint');
+        fetchUserUpdateStat(userId!, data.user);
+        data.words.forEach((word) => {
+          fetchWordUpdateOptions(userId!, word.id, word.userWord);
+        });
+      }
+    };
+
+    sendData().then(() => dispatch(fetchStatThunk(userId!)));
   }, [isEnd]);
 
   return (
