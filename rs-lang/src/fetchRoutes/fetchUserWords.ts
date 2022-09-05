@@ -79,9 +79,76 @@ export const fetchWordAddToDeleted = async (
 
 const WordCardAggregatedDecorator = (words: WordCardAggregated_[]): WordCardAggregated[] => {
   return words.map((word) => {
-    const { _id, ...newWord } = word;
+    let { _id, ...newWord } = word;
     newWord.id = _id;
-
+    if (!('userWord' in newWord)) {
+      newWord = {
+        ...newWord,
+        userWord: {
+          difficulty: 'normal',
+          optional: {
+            isDeleted: false,
+            isLearned: false,
+            isLearning: false,
+            games: {
+              savannah: {
+                correctAnswers: 0,
+                wrongAnswers: 0,
+              },
+              audioQuest: {
+                correctAnswers: 0,
+                wrongAnswers: 0,
+              },
+              correctAnswersStreak: 0,
+            },
+          },
+        },
+      };
+    } else if (!('optional' in newWord.userWord)) {
+      newWord = {
+        ...newWord,
+        userWord: {
+          ...newWord.userWord,
+          optional: {
+            isDeleted: false,
+            isLearned: false,
+            isLearning: false,
+            games: {
+              savannah: {
+                correctAnswers: 0,
+                wrongAnswers: 0,
+              },
+              audioQuest: {
+                correctAnswers: 0,
+                wrongAnswers: 0,
+              },
+              correctAnswersStreak: 0,
+            },
+          },
+        },
+      };
+    } else if (!('games' in newWord.userWord.optional!)) {
+      newWord = {
+        ...newWord,
+        userWord: {
+          ...newWord.userWord,
+          optional: {
+            ...newWord.userWord.optional,
+            games: {
+              savannah: {
+                correctAnswers: 0,
+                wrongAnswers: 0,
+              },
+              audioQuest: {
+                correctAnswers: 0,
+                wrongAnswers: 0,
+              },
+              correctAnswersStreak: 0,
+            },
+          },
+        },
+      };
+    }
     return newWord;
   });
 };

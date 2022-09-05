@@ -1,0 +1,141 @@
+@use '../../../scss/variables';
+@use '../../../scss/mixins';
+
+.game-statistics-wrapper{
+    position: fixed;
+    z-index: 2;
+    top:0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+
+    background-color: rgba($color: #000000, $alpha: .4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-statistics{
+    display: flex;
+    width: 640px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 6px;
+
+    @include mixins.media-tablet{
+        width: max-content;
+        flex-direction: column;
+        position: relative;
+        height: 50vh;
+        overflow-y: scroll;
+    }
+
+    &__btns{
+        display: flex;
+        column-gap: 40px;
+        padding-top: 20px;
+
+        &>*{
+            background: #FFF;
+            color: rgb(116, 116, 116);
+            padding: 5px 10px;
+            font-size: 1.125rem;
+            border: none;
+            cursor: pointer;
+            transition: all .3s linear;
+            border-radius: 6px;
+            
+            &:hover{
+                color: #000;
+            }
+
+            @include mixins.media-tablet{
+                font-size: 1rem;
+            }
+        }
+
+        @include mixins.media-tablet{
+            column-gap: 12px;
+        }
+    }
+}
+
+.correct-answers,
+.incorrect-answers{
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+
+    &__answers{
+        display: flex;
+        flex-direction: column;
+        row-gap: 5px;
+    }
+
+    &__title-wrapper{
+        display: flex;
+        column-gap: 5px;
+    }
+
+    &__title{
+        font-size: 1.125rem;
+        color: rgb(116, 116, 116);
+    }
+
+    &__amount{
+        display: inline-flex;
+        height: 24px;
+        width: 30px;
+        border-radius: 8px;
+        justify-content: center;
+        align-items: center;
+        color: #FFF;
+    }
+
+}
+
+.correct-answers{
+    @include mixins.media-tablet{
+        &::after{
+            content: "";
+            display: block;
+            width: 50%;
+            border-bottom: 2px solid rgb(116, 116, 116);
+            border-radius: 4px;
+            margin: 10px 0px;
+        }
+    }
+}
+
+.incorrect-answers__amount{
+    background-color: #FF7171;
+}
+
+.correct-answers__amount{
+    background-color: #4CCBB7;
+}
+
+.answer{
+    display: flex;
+    align-items: center;
+}
+
+.answer__word{
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+.answer__word-translate{
+    padding-left: 10px;
+    color: rgb(116, 116, 116);
+
+    &::before{
+        content: "—";
+        position: relative;
+        left: -10px;
+    }
+}
+

@@ -1,0 +1,60 @@
+@use '../../../scss/variables';
+@use '../../../scss/mixins';
+
+.sprint-game{
+    &-wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        row-gap: 50px;
+    }
+
+    &-timer{
+        margin-bottom: -40px;
+    }
+
+    &__question{
+        text-align: center;
+    }
+
+    &__current-word,
+    &__answer{
+        font-size: 1.75rem;
+        font-weight: 500;
+
+        @include mixins.media-mobile{
+            font-size: 1.4rem;
+        }
+    }
+
+    &__and{
+        font-size: 1.125rem;
+        padding: 0 5px;
+        color:rgb(131, 131, 131);
+    }
+
+    &__btns{
+        display: flex;
+        column-gap: 40px;
+    }
+
+    &__btn{
+        font-size: 1.25rem;
+        background: linear-gradient(to left, variables.$bg-color-primary 50%,rgb(214, 214, 214) 50.15%) right;
+        background-size: 200%;
+        transition: .5s ease-out;
+        cursor: pointer;
+        padding: 10px 5px;
+    
+        &:hover{
+            background-position: left;
+        }
+    }
+}
+
+.timer{
+    font-size: 1.25rem;
+    font-weight: 500;
+}

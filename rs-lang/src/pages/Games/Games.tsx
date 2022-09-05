@@ -25,7 +25,7 @@ function Games({ state }: Props) {
             to='/games/audio-quest'
             state={state}
           >
-            <div className='savannah-link game-link'>
+            <div className='audio-quest-link game-link'>
               <h3 className='game-title'>Аудиовызов</h3>
               <p className='game-subtitle'>Попробуй понять какое слово произнесено</p>
             </div>
@@ -33,12 +33,12 @@ function Games({ state }: Props) {
         </div>
         <div className='book__games__audio-quest book-game'>
           <Link
-            to='/games/savannah'
+            to='/games/sprint'
             state={state}
           >
-            <div className='audio-quest-link game-link'>
-              <h3 className='game-title'>Саванна</h3>
-              <p className='game-subtitle'>Выбери правильный перевод падающего вниз слова</p>
+            <div className='sprint-link game-link'>
+              <h3 className='game-title'>Спринт</h3>
+              <p className='game-subtitle'>Как можно быстрее определи верный перевод слова</p>
             </div>
           </Link>
         </div>

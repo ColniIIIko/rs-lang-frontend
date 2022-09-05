@@ -1,3 +1,5 @@
+import { wordGameStatistics } from '../Games/types';
+
 export interface WordCard {
   id: string;
   group: number;
@@ -20,20 +22,30 @@ export interface WordCardAggregated_ extends WordCard {
   userWord: {
     difficulty: string;
     optional?: {
-      isDeleted: boolean;
-      isLearning: boolean;
-      isLearned: boolean;
+      isDeleted?: boolean;
+      isLearning?: boolean;
+      isLearned?: boolean;
+      games?: {
+        savannah?: wordGameStatistics;
+        audioQuest?: wordGameStatistics;
+        correctAnswersStreak: number;
+      };
     };
   };
 }
 
 export interface WordCardAggregated extends WordCard {
   userWord: {
-    difficulty: string;
+    difficulty?: string;
     optional?: {
-      isDeleted: boolean;
-      isLearning: boolean;
-      isLearned: boolean;
+      isDeleted?: boolean;
+      isLearning?: boolean;
+      isLearned?: boolean;
+      games?: {
+        savannah?: wordGameStatistics;
+        audioQuest?: wordGameStatistics;
+        correctAnswersStreak: number;
+      };
     };
   };
 }

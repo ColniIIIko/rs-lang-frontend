@@ -14,8 +14,8 @@ import { addToken } from './axios/axiosConfig';
 import Loader from './components/Loader/Loader';
 import { fetchStatThunk } from './redux/reducers/stat';
 import Games from './pages/Games/Games';
-import Savannah from './pages/Games/Savannah';
-import AudioQuest from './pages/Games/AudioQuest';
+import AudioQuest from './pages/Games/AudioQuest/AudioQuest';
+import Sprint from './pages/Games/Sprint/Sprint';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -96,11 +96,11 @@ function App() {
           }
         />
         <Route
-          path='/games/savannah'
+          path='/games/sprint'
           element={
             <>
               <Header currentPage='Игры' />
-              <Savannah />
+              <Sprint />
             </>
           }
         />
