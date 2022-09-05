@@ -14,10 +14,10 @@ function WordCards({ setCurrentCard, isLoading, data }: Props) {
   const [tempData, setTempData] = useState<typeof data>(null);
   const tempArr: number[] = new Array(20).fill(0);
   useEffect(() => {
-    if (data && data.length < 20) {
+    if (data) {
       setTempData([...data, ...new Array(20 - data.length).fill(0)]);
     }
-    if (data) setActiveId(data[0].id);
+    if (data && data.length) setActiveId(data[0].id);
   }, [data]);
 
   return (
