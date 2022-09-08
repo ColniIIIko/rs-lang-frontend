@@ -36,7 +36,7 @@ function SprintGame({ gameState, setGameState }: Props) {
   };
 
   useEffect(() => {
-    setCurrentAnswer(Math.random() > 0.5 ? words[currentIndex] : words[Math.round(Math.random() * 19)]);
+    setCurrentAnswer(Math.random() > 0.5 ? words[currentIndex] : words[Math.round(Math.random() * words.length)]);
   }, [currentIndex]);
 
   useEffect(() => {

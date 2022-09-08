@@ -47,6 +47,15 @@
     }
 }
 
+.book-game{
+    transition: opacity .3s linear;
+
+    &[aria-disabled="true"]{
+        pointer-events: none;
+        opacity: 0.6;
+    }
+}
+
 .games-title{
     font-size: 2rem;
 }

@@ -184,31 +184,31 @@ export const fetchWordsAggregated = async <T extends Params>(userId: string, par
 export const fetchWordsAggregatedDiff = async <T extends Params>(userId: string, params: T) => {
   const response = await instance.get<WordCardAggregatedResponse>(`/users/${userId}/aggregatedWords`, {
     params: {
-      wordsPerPage: 20,
-      filter: { $and: [{ 'userWord.difficulty': 'difficult' }, { page: params.page }, { group: params.group }] },
+      wordsPerPage: 600,
+      filter: { $and: [{ 'userWord.difficulty': 'difficult' }, { group: params.group }] },
     },
   });
-  return WordCardAggregatedDecorator(response.data[0].paginatedResults);
+  return WordCardAggregatedDecorator(response.data[0].paginatedResults.slice(params.page * 20, 20 * (params.page + 1)));
 };
 
 export const fetchWordsAggregatedDeleted = async <T extends Params>(userId: string, params: T) => {
   const response = await instance.get<WordCardAggregatedResponse>(`/users/${userId}/aggregatedWords`, {
     params: {
-      wordsPerPage: 20,
-      filter: { $and: [{ 'userWord.optional.isDeleted': true }, { page: params.page }, { group: params.group }] },
+      wordsPerPage: 600,
+      filter: { $and: [{ 'userWord.optional.isDeleted': true }, { group: params.group }] },
     },
   });
-  return WordCardAggregatedDecorator(response.data[0].paginatedResults);
+  return WordCardAggregatedDecorator(response.data[0].paginatedResults.slice(params.page * 20, 20 * (params.page + 1)));
 };
 
 export const fetchWordsAggregatedLearning = async <T extends Params>(userId: string, params: T) => {
   const response = await instance.get<WordCardAggregatedResponse>(`/users/${userId}/aggregatedWords`, {
     params: {
-      wordsPerPage: 20,
-      filter: { $and: [{ 'userWord.optional.isLearning': true }, { page: params.page }, { group: params.group }] },
+      wordsPerPage: 600,
+      filter: { $and: [{ 'userWord.optional.isLearning': true }, { group: params.group }] },
     },
   });
-  return WordCardAggregatedDecorator(response.data[0].paginatedResults);
+  return WordCardAggregatedDecorator(response.data[0].paginatedResults.slice(params.page * 20, 20 * (params.page + 1)));
 };
 
 export const fetchWordsUnAuth = async <T>(params: T) => {

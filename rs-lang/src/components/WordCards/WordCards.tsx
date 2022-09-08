@@ -12,10 +12,11 @@ type Props = {
 function WordCards({ setCurrentCard, isLoading, data }: Props) {
   const [activeId, setActiveId] = useState<string>('');
   const [tempData, setTempData] = useState<typeof data>(null);
-  const tempArr: number[] = new Array(20).fill(0);
   useEffect(() => {
     if (data) {
       setTempData([...data, ...new Array(20 - data.length).fill(0)]);
+    } else {
+      setTempData(new Array(20).fill(0));
     }
     if (data && data.length) setActiveId(data[0].id);
   }, [data]);
@@ -48,7 +49,7 @@ function WordCards({ setCurrentCard, isLoading, data }: Props) {
               </ContentLoader>
             )
           )
-        : tempArr.map((_, index) => (
+        : tempData?.map((_, index) => (
             <ContentLoader
               key={index}
               className='card__loading-wrapper'

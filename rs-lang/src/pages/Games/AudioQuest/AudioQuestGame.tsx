@@ -40,7 +40,7 @@ function AudioQuestGame({ gameState, setGameState }: Props) {
   useEffect(() => {
     const sendData = async () => {
       if (isEnd && isAuth) {
-        const data = prepareUserWordStat(words.slice(0, currentIndex + 1), 'sprint');
+        const data = prepareUserWordStat(words.slice(0, currentIndex + 1), 'audioQuest');
         fetchUserUpdateStat(userId!, data.user);
         data.words.forEach((word) => {
           fetchWordUpdateOptions(userId!, word.id, word.userWord);
@@ -65,26 +65,27 @@ function AudioQuestGame({ gameState, setGameState }: Props) {
             <img src='/assets/svg/rs-lang-speaker.svg' />
           </div>
           <div className='audio-quest-game__answers'>
-            {shuffle([...pickRandomFromArray<gameWord>(words, 3, [currentIndex]), words[currentIndex]]).map(
-              (answer, index) => (
-                <p
-                  className='audio-quest-game__answer'
-                  key={answer.data.id}
-                  onClick={(e) => {
-                    if (answer.data.id === words[currentIndex].data.id) {
-                      (e.target as HTMLParagraphElement).style.backgroundColor = '#4CCBB7';
-                      words[currentIndex].isCorrect = true;
-                    } else {
-                      (e.target as HTMLParagraphElement).style.backgroundColor = '#FF7171';
-                    }
-                    setTimeout(() => {
-                      handleNext();
-                      (e.target as HTMLParagraphElement).style.backgroundColor = '';
-                    }, 800);
-                  }}
-                >{`${index + 1}.${answer.data.wordTranslate}`}</p>
-              )
-            )}
+            {shuffle([
+              ...pickRandomFromArray<gameWord>(words, words.length > 4 ? 3 : words.length - 1, [currentIndex]),
+              words[currentIndex],
+            ]).map((answer, index) => (
+              <p
+                className='audio-quest-game__answer'
+                key={answer.data.id}
+                onClick={(e) => {
+                  if (answer.data.id === words[currentIndex].data.id) {
+                    (e.target as HTMLParagraphElement).style.backgroundColor = '#4CCBB7';
+                    words[currentIndex].isCorrect = true;
+                  } else {
+                    (e.target as HTMLParagraphElement).style.backgroundColor = '#FF7171';
+                  }
+                  setTimeout(() => {
+                    handleNext();
+                    (e.target as HTMLParagraphElement).style.backgroundColor = '';
+                  }, 800);
+                }}
+              >{`${index + 1}.${answer.data.wordTranslate}`}</p>
+            ))}
           </div>
           <button
             className='audio-quest-game__skip-btn'

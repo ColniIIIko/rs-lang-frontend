@@ -1,3 +1,4 @@
+import { stat } from 'fs';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { WordCard, WordCardAggregated } from '../Book/types';
@@ -20,7 +21,12 @@ function Games({ state }: Props) {
         </div>
       )}
       <div className='book__games-list'>
-        <div className='book__games__savannah book-game'>
+        <div
+          className='book__games__savannah book-game'
+          aria-disabled={Boolean(
+            (state.data && state.data?.length < 5 && state.fromBook) || (!state.data && state.fromBook)
+          )}
+        >
           <Link
             to='/games/audio-quest'
             state={state}
@@ -31,7 +37,12 @@ function Games({ state }: Props) {
             </div>
           </Link>
         </div>
-        <div className='book__games__audio-quest book-game'>
+        <div
+          className='book__games__audio-quest book-game'
+          aria-disabled={Boolean(
+            (state.data && state.data?.length < 5 && state.fromBook) || (!state.data && state.fromBook)
+          )}
+        >
           <Link
             to='/games/sprint'
             state={state}

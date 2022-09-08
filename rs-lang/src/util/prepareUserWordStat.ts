@@ -8,12 +8,18 @@ export const prepareUserWordStat = (words: gameWord[], game: 'audioQuest' | 'spr
 
   const sendWords = words.map((word) => {
     const sendWord = word.data as WordCardAggregated;
+    if (!sendWord.userWord.optional.isLearning) {
+      userStatistics.optional.learningCount += 1;
+      sendWord.userWord.optional.isLearning = true;
+    }
     if (word.isCorrect) {
       sendWord.userWord.optional.games[game].correctAnswers += 1;
       sendWord.userWord.optional.games.correctAnswersStreak += 1;
       userStatistics.optional.games[game].correctAnswers += 1;
       if (sendWord.userWord.optional.games.correctAnswersStreak >= 3) {
         sendWord.userWord.optional.isLearned = true;
+        sendWord.userWord.optional.isLearning = false;
+        userStatistics.optional.learningCount -= 1;
         userStatistics.learnedWords += 1;
       }
     } else {
@@ -21,11 +27,6 @@ export const prepareUserWordStat = (words: gameWord[], game: 'audioQuest' | 'spr
       sendWord.userWord.optional.games.correctAnswersStreak = 0;
       userStatistics.optional.games![game].wrongAnswers += 1;
     }
-    if (!sendWord.userWord.optional.isLearning) {
-      userStatistics.optional.learningCount += 1;
-      sendWord.userWord.optional.isLearning = true;
-    }
-
     return sendWord;
   });
 
