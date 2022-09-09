@@ -39,4 +39,4 @@ function DictionaryOptions({ option, setOption }: Props) {
   );
 }
 
-export default DictionaryOptions;
+export default React.memo(DictionaryOptions);

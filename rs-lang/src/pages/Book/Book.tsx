@@ -1,29 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import Card from '../../components/Card/Card';
-import Pagination from '../../components/Pagination/Pagination';
-import WordCards from '../../components/WordCards/WordCards';
+import React, { useState } from 'react';
 import WordsDiff from '../../components/WordsDiffs/WordsDiff';
-import { diffName, DiffsGroup, WordCard, WordCardAggregated, WordsGroup } from './types';
+import { DiffsGroup, WordsGroup } from './types';
 import { useAppSelector } from '../../redux/hooks';
 import { selectIsAuth } from '../../redux/reducers/auth';
 import './style.scss';
 import DictionaryOptions from '../../components/DictionaryOptions/DictionaryOptions';
-import Games from '../Games/Games';
+import GamesNCards from '../../components/CardsSection/GamesNCards';
 
 function Book() {
   const [activeDiff, setActiveDiff] = useState<DiffsGroup>(DiffsGroup['normal-easy']);
   const [option, setOption] = useState<WordsGroup>(WordsGroup['difficult']);
   const [isBook, setBook] = useState<boolean>(true);
-  const [isAction, setAction] = useState<boolean>(false);
   const isAuth = useAppSelector(selectIsAuth);
-
-  const [cards, setCards] = useState<WordCard[] | WordCardAggregated[] | null>(null);
-  const [currentCard, setCurrentCard] = useState<WordCard | WordCardAggregated | null>(null);
-  const [isLoading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    if (cards) setCurrentCard(cards[0]);
-  }, [cards]);
 
   return (
     <div className='book'>
@@ -59,30 +47,11 @@ function Book() {
           setOption={setOption}
         />
       )}
-      <section className='book__cards'>
-        <Pagination
-          diff={DiffsGroup[activeDiff] as diffName}
-          isAction={isAction}
-          setAction={setAction}
-          setData={setCards}
-          setLoading={setLoading}
-          isBook={isBook}
-          option={option}
-        >
-          <WordCards
-            setCurrentCard={setCurrentCard}
-            data={cards}
-            isLoading={isLoading}
-          />
-        </Pagination>
-        <Card
-          data={currentCard}
-          setAction={setAction}
-          option={option}
-          isBook={isBook}
-        />
-      </section>
-      <Games state={{ fromBook: true, data: cards }} />
+      <GamesNCards
+        isBook={isBook}
+        option={option}
+        activeDiff={activeDiff}
+      />
     </div>
   );
 }

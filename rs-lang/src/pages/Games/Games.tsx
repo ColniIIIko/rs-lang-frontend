@@ -58,4 +58,4 @@ function Games({ state }: Props) {
   );
 }
 
-export default Games;
+export default React.memo(Games);

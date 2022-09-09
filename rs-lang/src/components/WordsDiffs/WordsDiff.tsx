@@ -72,4 +72,4 @@ function WordsDiff({ titles, setActiveDiff, activeDiff }: Props) {
   );
 }
 
-export default WordsDiff;
+export default React.memo(WordsDiff);
