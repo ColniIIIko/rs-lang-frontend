@@ -45,10 +45,14 @@ function AudioQuestGame({ gameState, setGameState }: Props) {
         data.words.forEach((word) => {
           fetchWordUpdateOptions(userId!, word.id, word.userWord);
         });
+        return true;
       }
+      return false;
     };
 
-    sendData().then(() => dispatch(fetchStatThunk(userId!)));
+    sendData().then((isOk: boolean) => {
+      isOk && dispatch(fetchStatThunk(userId!));
+    });
   }, [isEnd]);
 
   return (

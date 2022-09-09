@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Timer from '../../../components/timer/Timer';
 import { fetchUserUpdateStat } from '../../../fetchRoutes/fetchUserStats';
 import { fetchWordUpdateOptions } from '../../../fetchRoutes/fetchUserWords';
-import { useCountDown } from '../../../hooks/useCountDown';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { selectIsAuth, selectUserId } from '../../../redux/reducers/auth';
 import { fetchStatThunk } from '../../../redux/reducers/stat';
-import { pickRandomFromArray } from '../../../util/pickRandomFromArray';
 import { prepareUserWordStat } from '../../../util/prepareUserWordStat';
 import { shuffle } from '../../../util/shuffle';
 import Statistics from '../components/Statistics';
@@ -27,7 +26,6 @@ function SprintGame({ gameState, setGameState }: Props) {
   const userId = useAppSelector(selectUserId);
   const dispatch = useAppDispatch();
 
-  const { counter } = useCountDown(30, () => setEnd(true));
   const imgIsCorrectRef = useRef<HTMLImageElement>(null);
 
   const handleNext = () => {
@@ -36,7 +34,7 @@ function SprintGame({ gameState, setGameState }: Props) {
   };
 
   useEffect(() => {
-    setCurrentAnswer(Math.random() > 0.5 ? words[currentIndex] : words[Math.round(Math.random() * words.length)]);
+    setCurrentAnswer(Math.random() > 0.5 ? words[currentIndex] : words[Math.round(Math.random() * (words.length - 1))]);
   }, [currentIndex]);
 
   useEffect(() => {
@@ -47,19 +45,21 @@ function SprintGame({ gameState, setGameState }: Props) {
         data.words.forEach((word) => {
           fetchWordUpdateOptions(userId!, word.id, word.userWord);
         });
+        return true;
       }
+      return false;
     };
 
-    sendData().then(() => dispatch(fetchStatThunk(userId!)));
+    sendData().then((isOk: boolean) => {
+      isOk && dispatch(fetchStatThunk(userId!));
+    });
   }, [isEnd]);
-
+  console.log(words[currentIndex]);
   return (
     <div className='sprint-game'>
       {!isEnd && (
         <div className='sprint-game-wrapper'>
-          <div className='sprint-game-timer'>
-            <span className='timer'>{counter}</span>
-          </div>
+          <Timer action={() => setEnd(true)} />
           <div className='sprint-correct'>
             <img
               style={{ transition: 'all .1s ease' }}
@@ -84,10 +84,15 @@ function SprintGame({ gameState, setGameState }: Props) {
                   imgIsCorrectRef.current!.style.filter =
                     'invert(58%) sepia(92%) saturate(1282%) hue-rotate(317deg) brightness(108%) contrast(98%)';
                 }
-                setTimeout(() => {
+                if (currentIndex !== words.length - 1) {
+                  setTimeout(() => {
+                    imgIsCorrectRef.current!.style.filter = '';
+                    handleNext();
+                  }, 200);
+                } else {
                   imgIsCorrectRef.current!.style.filter = '';
                   handleNext();
-                }, 200);
+                }
               }}
             >
               Правильно
@@ -103,10 +108,15 @@ function SprintGame({ gameState, setGameState }: Props) {
                   imgIsCorrectRef.current!.style.filter =
                     'invert(58%) sepia(92%) saturate(1282%) hue-rotate(317deg) brightness(108%) contrast(98%)';
                 }
-                setTimeout(() => {
+                if (currentIndex !== words.length - 1) {
+                  setTimeout(() => {
+                    imgIsCorrectRef.current!.style.filter = '';
+                    handleNext();
+                  }, 200);
+                } else {
                   imgIsCorrectRef.current!.style.filter = '';
                   handleNext();
-                }, 200);
+                }
               }}
             >
               Неправильно
