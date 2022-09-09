@@ -70,8 +70,8 @@ function PaginationControls({ setData, setLoading, setAction, isAction, option, 
     // });
     // const data = response.data;
     const data = await handleFetch();
-    setLoading(false);
     setData(data);
+    setLoading(false);
   };
 
   const { handleNext, handlePrev, nextRef, prevRef } = usePagination(page, MAX_PAGE, setPage);

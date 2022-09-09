@@ -30,4 +30,4 @@ function Pagination({ diff, setData, setLoading, setAction, isAction, isBook, op
   );
 }
 
-export default React.memo(Pagination);
+export default Pagination;
