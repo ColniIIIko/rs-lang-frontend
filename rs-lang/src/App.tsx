@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import Footer from './components/Footer/Footer';
 import AuthHeader from './components/Header/AuthHeader';
 import Header from './components/Header/Header';
@@ -20,7 +20,7 @@ import Sprint from './pages/Games/Sprint/Sprint';
 function App() {
   const dispatch = useAppDispatch();
   const [isLoading, setLoading] = useState(false);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const checkAuth = async () => {
       setLoading(true);
       const user = JSON.parse(localStorage.getItem('user') || '0') as AuthResponse | null;
@@ -49,71 +49,73 @@ function App() {
   return (
     <>
       {isLoading && <Loader />}
-      <Routes>
-        <Route
-          path='/'
-          element={
-            <>
-              <Header currentPage='Главная' />
-              <Main />
-            </>
-          }
-        />
-        <Route
-          path='/book'
-          element={
-            <>
-              <Header currentPage='Учебник' />
-              <Book />
-            </>
-          }
-        />
-        <Route
-          path='/login'
-          element={
-            <>
-              <AuthHeader />
-              <Login />
-            </>
-          }
-        />
-        <Route
-          path='/register'
-          element={
-            <>
-              <AuthHeader />
-              <Register />
-            </>
-          }
-        />
-        <Route
-          path='/games'
-          element={
-            <>
-              <Header currentPage='Игры' />
-              <Games state={{ fromBook: false }} />
-            </>
-          }
-        />
-        <Route
-          path='/games/sprint'
-          element={
-            <>
-              <Header currentPage='Игры' />
-              <Sprint />
-            </>
-          }
-        />
-        <Route
-          path='/games/audio-quest'
-          element={
-            <>
-              <Header currentPage='Игры' />
-              <AudioQuest />
-            </>
-          }
-        />
-      </Routes>
+      {!isLoading && (
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <>
+                <Header currentPage='Главная' />
+                <Main />
+              </>
+            }
+          />
+          <Route
+            path='/book'
+            element={
+              <>
+                <Header currentPage='Учебник' />
+                <Book />
+              </>
+            }
+          />
+          <Route
+            path='/login'
+            element={
+              <>
+                <AuthHeader />
+                <Login />
+              </>
+            }
+          />
+          <Route
+            path='/register'
+            element={
+              <>
+                <AuthHeader />
+                <Register />
+              </>
+            }
+          />
+          <Route
+            path='/games'
+            element={
+              <>
+                <Header currentPage='Игры' />
+                <Games state={{ fromBook: false }} />
+              </>
+            }
+          />
+          <Route
+            path='/games/sprint'
+            element={
+              <>
+                <Header currentPage='Игры' />
+                <Sprint />
+              </>
+            }
+          />
+          <Route
+            path='/games/audio-quest'
+            element={
+              <>
+                <Header currentPage='Игры' />
+                <AudioQuest />
+              </>
+            }
+          />
+        </Routes>
+      )}
       <Footer />
     </>
   );

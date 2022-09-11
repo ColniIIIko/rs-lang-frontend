@@ -1,17 +1,14 @@
 import React from 'react';
+import { useAppSelector } from '../../redux/hooks';
 import { AuthResponse } from '../../redux/reducers/auth';
 import './style.scss';
 
 function ButtonUser() {
-  let userName = 'userName';
-  const userString = localStorage.getItem('user');
-  if (userString) {
-    userName = (JSON.parse(userString) as AuthResponse).name;
-  }
+  const userName = useAppSelector((state) => state.auth.data?.name);
 
   return (
     <div className='buttons__user btn'>
-      <p>{':' + userName}</p>
+      <p>{':' + userName || 'userName'}</p>
     </div>
   );
 }
