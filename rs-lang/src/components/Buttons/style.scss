@@ -5,6 +5,7 @@
     cursor: pointer;
     padding: 11px 8px;
     font-size: 1.25rem;
+    color: variables.$font-color-primary;
 
     background: linear-gradient(to left, variables.$bg-color-primary 50%, #D49FDC 50.15%, rgba(240, 217, 243, 0.19)) right;
     background-size: 200%;

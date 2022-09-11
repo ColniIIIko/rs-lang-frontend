@@ -1,0 +1,75 @@
+@use '../../scss/mixins';
+
+.profile{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100vh - 167px);
+    padding: 0 10px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding-top: 5vh;
+
+    &__title{
+        font-size: 2.2rem;
+    }
+
+    &__overAll-stat{
+        padding-bottom: 5vh;
+    }
+}
+
+.overAll-stat{
+    display: flex;
+    column-gap: 15vw;
+    padding: 20px 0;
+
+    &__stat{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__value{
+        font-size: 3rem;
+        font-weight: 700;
+
+        @include mixins.media-mobile{
+            font-size: 2.5rem;
+        }
+    }
+
+    &__title{
+        font-size: 1.5rem;
+        text-align: center;
+
+        @include mixins.media-mobile{
+            font-size: 1.25rem;
+        }
+    }
+}
+
+.game-stat{
+    display: flex;
+    column-gap: 5vw;
+
+    &__stat{
+        background: linear-gradient(112.76deg, #e5ffcb80 19.22%, rgba(251, 212, 184, 0.308) 117.06%);
+        border-radius: 6px;
+        padding: 20px 30px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 5px;
+    }
+
+    &__title{
+        font-size: 1.5rem;
+        padding-bottom: 5px;
+    }
+
+    @include mixins.media-mobile{
+        flex-direction: column;
+        row-gap: 20px;
+    }
+
+}

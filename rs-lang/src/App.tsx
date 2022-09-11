@@ -16,6 +16,7 @@ import { fetchStatThunk } from './redux/reducers/stat';
 import Games from './pages/Games/Games';
 import AudioQuest from './pages/Games/AudioQuest/AudioQuest';
 import Sprint from './pages/Games/Sprint/Sprint';
+import Profile from './pages/Profile/Profile';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -111,6 +112,15 @@ function App() {
             <>
               <Header currentPage='Игры' />
               <AudioQuest />
+            </>
+          }
+        />
+        <Route
+          path='/profile'
+          element={
+            <>
+              <Header currentPage='' />
+              <Profile />
             </>
           }
         />
