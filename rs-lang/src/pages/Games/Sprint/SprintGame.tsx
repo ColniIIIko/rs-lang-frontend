@@ -48,7 +48,7 @@ function SprintGame({ gameState }: Props) {
       isOk && dispatch(fetchStatThunk(userId!));
     });
   }, [isEnd]);
-  console.log(words[currentIndex]);
+
   return (
     <div className='sprint-game'>
       {!isEnd && (

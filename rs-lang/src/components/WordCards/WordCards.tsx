@@ -21,7 +21,6 @@ function WordCards({ setCurrentCard, isLoading, data }: Props) {
     if (data && data.length) setActiveId(data[0].id);
   }, [data, isLoading]);
 
-  console.log(data, isLoading);
   return (
     <div className='word-cards'>
       {!isLoading
