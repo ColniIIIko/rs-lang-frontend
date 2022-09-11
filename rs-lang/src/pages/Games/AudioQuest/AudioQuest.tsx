@@ -55,12 +55,7 @@ function AudioQuest() {
           Начать
         </button>
       )}
-      {gameState.isGame && (
-        <AudioQuestGame
-          gameState={gameState}
-          setGameState={setGameState}
-        />
-      )}
+      {gameState.isGame && <AudioQuestGame gameState={gameState} />}
     </div>
   );
 }

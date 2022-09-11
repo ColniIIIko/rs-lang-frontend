@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { fetchWordAddToDiff } from '../../fetchRoutes/fetchUserWords';
+import React, { useEffect, useRef } from 'react';
 import { WordCard, WordCardAggregated, WordsGroup } from '../../pages/Book/types';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { selectIsAuth, selectUserId } from '../../redux/reducers/auth';
-import { updateStatDifficult } from '../../redux/reducers/stat';
+import { useAppSelector } from '../../redux/hooks';
+import { selectIsAuth } from '../../redux/reducers/auth';
 import CardControls from './CardControls';
 import './style.scss';
 
@@ -45,6 +43,7 @@ function Card({ data, option, isBook, setAction }: Props) {
         <img
           className='word-transcript-audio'
           src='/assets/svg/rs-lang-audio-ico.svg'
+          alt='word-transcript-audio'
           onClick={() => {
             audioTranscriptRef.current?.play();
           }}
@@ -60,6 +59,7 @@ function Card({ data, option, isBook, setAction }: Props) {
           <img
             className='word-transcript-audio'
             src='/assets/svg/rs-lang-audio-ico.svg'
+            alt='word-meaning-audio'
             onClick={() => {
               audioMeaningRef.current?.play();
             }}
@@ -81,6 +81,7 @@ function Card({ data, option, isBook, setAction }: Props) {
           <img
             className='word-transcript-audio'
             src='/assets/svg/rs-lang-audio-ico.svg'
+            alt='word-example-audio'
             onClick={() => {
               audioExampleRef.current?.play();
             }}

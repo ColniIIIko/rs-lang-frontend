@@ -13,13 +13,12 @@ import './style.scss';
 
 type Props = {
   gameState: gameState;
-  setGameState: React.Dispatch<React.SetStateAction<gameState>>;
 };
 
-function SprintGame({ gameState, setGameState }: Props) {
+function SprintGame({ gameState }: Props) {
   const [isEnd, setEnd] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [words, setWords] = useState(shuffle<gameWord>(gameState.words!));
+  const [words] = useState(shuffle<gameWord>(gameState.words!));
   const [currentAnswer, setCurrentAnswer] = useState<gameWord>(gameState.words![0]);
 
   const isAuth = useAppSelector(selectIsAuth);
@@ -28,14 +27,9 @@ function SprintGame({ gameState, setGameState }: Props) {
 
   const imgIsCorrectRef = useRef<HTMLImageElement>(null);
 
-  const handleNext = () => {
-    if (currentIndex === words.length - 1) setEnd(true);
-    else setCurrentIndex((prev) => prev + 1);
-  };
-
   useEffect(() => {
     setCurrentAnswer(Math.random() > 0.5 ? words[currentIndex] : words[Math.round(Math.random() * (words.length - 1))]);
-  }, [currentIndex]);
+  }, [currentIndex, words]);
 
   useEffect(() => {
     const sendData = async () => {
@@ -65,6 +59,7 @@ function SprintGame({ gameState, setGameState }: Props) {
               style={{ transition: 'all .1s ease' }}
               ref={imgIsCorrectRef}
               src='/assets/svg/rs-lang-correct.svg'
+              alt='audio'
             />
           </div>
           <div className='sprint-game__question'>
@@ -87,11 +82,11 @@ function SprintGame({ gameState, setGameState }: Props) {
                 if (currentIndex !== words.length - 1) {
                   setTimeout(() => {
                     imgIsCorrectRef.current!.style.filter = '';
-                    handleNext();
+                    setCurrentIndex((prev) => prev + 1);
                   }, 200);
                 } else {
                   imgIsCorrectRef.current!.style.filter = '';
-                  handleNext();
+                  setEnd(true);
                 }
               }}
             >
@@ -111,11 +106,11 @@ function SprintGame({ gameState, setGameState }: Props) {
                 if (currentIndex !== words.length - 1) {
                   setTimeout(() => {
                     imgIsCorrectRef.current!.style.filter = '';
-                    handleNext();
+                    setCurrentIndex((prev) => prev + 1);
                   }, 200);
                 } else {
                   imgIsCorrectRef.current!.style.filter = '';
-                  handleNext();
+                  setEnd(true);
                 }
               }}
             >

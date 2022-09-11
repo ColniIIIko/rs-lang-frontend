@@ -55,12 +55,7 @@ function Sprint() {
           Начать
         </button>
       )}
-      {gameState.isGame && (
-        <SprintGame
-          gameState={gameState}
-          setGameState={setGameState}
-        />
-      )}
+      {gameState.isGame && <SprintGame gameState={gameState} />}
     </div>
   );
 }

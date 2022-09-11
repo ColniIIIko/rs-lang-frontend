@@ -66,8 +66,6 @@ export const fetchWordAddToDeleted = async (
   wordId: string,
   currentOptions: WordCardAggregated['userWord'] | undefined
 ) => {
-  const isUserWordExist = Boolean(currentOptions);
-
   try {
     await instance.put(`/users/${userId}/words/${wordId}`, {
       ...currentOptions,

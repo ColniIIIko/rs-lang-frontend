@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './style.scss';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';

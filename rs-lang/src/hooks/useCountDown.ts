@@ -12,7 +12,7 @@ export const useCountDown = (startValue: number, action: () => void) => {
       setCounter(counter - 1);
     }, 1000);
     return () => clearTimeout(id);
-  }, [counter]);
+  }, [counter, action]);
 
   return { counter };
 };

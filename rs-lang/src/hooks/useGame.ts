@@ -44,7 +44,7 @@ export const useGame = (data: WordCard[] | WordCardAggregated[] | null, isAuth: 
       setWordsAccordingDiff();
       setReady(true);
     }
-  }, [currentDiff]);
+  }, [currentDiff, isAuth, userId]);
 
   return {
     gameState,

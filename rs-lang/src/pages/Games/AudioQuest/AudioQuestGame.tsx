@@ -13,15 +13,14 @@ import './style.scss';
 
 type Props = {
   gameState: gameState;
-  setGameState: React.Dispatch<React.SetStateAction<gameState>>;
 };
 
 const audioController = new Audio();
 
-function AudioQuestGame({ gameState, setGameState }: Props) {
+function AudioQuestGame({ gameState }: Props) {
   const [isEnd, setEnd] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [words, setWords] = useState(shuffle<gameWord>(gameState.words!));
+  const [words] = useState(shuffle<gameWord>(gameState.words!));
 
   const isAuth = useAppSelector(selectIsAuth);
   const userId = useAppSelector(selectUserId);

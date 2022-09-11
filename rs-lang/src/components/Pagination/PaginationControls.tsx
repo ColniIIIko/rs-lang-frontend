@@ -34,52 +34,38 @@ function PaginationControls({ setData, setLoading, setAction, isAction, option, 
   const isAuth = useAppSelector(selectIsAuth);
   const userId = useAppSelector(selectUserId);
 
-  const handleFetch = async () => {
-    // if (isAuth && isBook) {
-    //   return await fetchWordsAggregated<Params>(userId!, { group, page: page - 1 });
-    // }
-    // if (isAuth && !isBook) {
-    //   return await fetchWordsAggregatedDiff<Params>(userId!, { group, page: page - 1 });
-    // }
-
-    if (isAuth) {
-      if (isBook) {
-        return await fetchWordsAggregated<Params>(userId!, { group, page: page - 1 });
-      }
-
-      switch (option) {
-        case WordsGroup['difficult']:
-          return await fetchWordsAggregatedDiff<Params>(userId!, { group, page: page - 1 });
-        case WordsGroup['deleted']:
-          return await fetchWordsAggregatedDeleted<Params>(userId!, { group, page: page - 1 });
-        case WordsGroup['learning']:
-          return await fetchWordsAggregatedLearning<Params>(userId!, { group, page: page - 1 });
-      }
-    }
-
-    return await fetchWordsUnAuth<Params>({ group, page: page - 1 });
-  };
-
-  const fetchData = async (page: number) => {
-    setLoading(true);
-    // const response = await instance.get<WordCard[]>(endpoint, {
-    //   params: {
-    //     group,
-    //     page: page - 1,
-    //   },
-    // });
-    // const data = response.data;
-    const data = await handleFetch();
-    setData(data);
-    setLoading(false);
-  };
-
   const { handleNext, handlePrev, nextRef, prevRef } = usePagination(page, MAX_PAGE, setPage);
 
   useEffect(() => {
+    const handleFetch = async () => {
+      if (isAuth) {
+        if (isBook) {
+          return await fetchWordsAggregated<Params>(userId!, { group, page: page - 1 });
+        }
+
+        switch (option) {
+          case WordsGroup['difficult']:
+            return await fetchWordsAggregatedDiff<Params>(userId!, { group, page: page - 1 });
+          case WordsGroup['deleted']:
+            return await fetchWordsAggregatedDeleted<Params>(userId!, { group, page: page - 1 });
+          case WordsGroup['learning']:
+            return await fetchWordsAggregatedLearning<Params>(userId!, { group, page: page - 1 });
+        }
+      }
+
+      return await fetchWordsUnAuth<Params>({ group, page: page - 1 });
+    };
+
+    const fetchData = async () => {
+      setLoading(true);
+      const data = await handleFetch();
+      setData(data);
+      setLoading(false);
+    };
+
     setAction(false);
-    fetchData(page);
-  }, [group, page, isAction, isBook, option]);
+    fetchData();
+  }, [group, page, isAction, isBook, option, setAction, isAuth, setData, setLoading, userId]);
 
   return (
     <div className='pagination__controls'>
