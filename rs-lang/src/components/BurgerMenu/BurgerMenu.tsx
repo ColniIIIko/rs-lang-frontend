@@ -1,11 +1,15 @@
 import React, { ReactNode, useState } from 'react';
+import ButtonAuth from '../Buttons/ButtonAuth';
+import ButtonUser from '../Buttons/ButtonUser';
+import Navigation from '../Navigation/Navigation';
 import './style.scss';
 
 type Prop = {
-  children: JSX.Element | JSX.Element[];
+  currentPage: string;
+  isAuth: boolean;
 };
 
-function BurgerMenu({ children }: Prop) {
+function BurgerMenu({ currentPage, isAuth }: Prop) {
   const [isActive, setActive] = useState(false);
 
   return (
@@ -31,7 +35,30 @@ function BurgerMenu({ children }: Prop) {
             <span className='close_cross1'></span>
             <span className='close_cross2'></span>
           </div>
-          {children}
+          <Navigation
+            onClick={() => {
+              setActive(false);
+            }}
+            currentPage={currentPage}
+            pages={[
+              { pageName: 'Главная', route: '/' },
+              { pageName: 'Учебник', route: '/book' },
+              { pageName: 'Игры', route: '/games' },
+            ]}
+          />
+          {isAuth ? (
+            <ButtonUser
+              onClick={() => {
+                setActive(false);
+              }}
+            />
+          ) : (
+            <ButtonAuth
+              onClick={() => {
+                setActive(false);
+              }}
+            />
+          )}
         </div>
       </div>
     </>

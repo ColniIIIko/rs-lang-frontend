@@ -8,14 +8,16 @@ type NavigationProps = {
     route: string;
   }[];
   currentPage: string;
+  onClick?: () => void;
 };
 
-function Navigation({ currentPage, pages }: NavigationProps) {
+function Navigation({ currentPage, pages, onClick }: NavigationProps) {
   return (
     <nav>
       <ul className='navigation'>
         {pages.map((page, index) => (
           <li
+            onClick={onClick}
             key={index}
             className={['navigation__elem', `${currentPage === page.pageName ? 'active' : ''}`].join(' ')}
           >

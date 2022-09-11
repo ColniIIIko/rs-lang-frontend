@@ -28,17 +28,10 @@ function Header({ currentPage }: HeaderProps) {
           />
           {isAuth ? <ButtonUser /> : <ButtonAuth />}
         </div>
-        <BurgerMenu>
-          <Navigation
-            currentPage={currentPage}
-            pages={[
-              { pageName: 'Главная', route: '/' },
-              { pageName: 'Учебник', route: '/book' },
-              { pageName: 'Игры', route: '/games' },
-            ]}
-          />
-          {isAuth ? <ButtonUser /> : <ButtonAuth />}
-        </BurgerMenu>
+        <BurgerMenu
+          currentPage={currentPage}
+          isAuth={isAuth}
+        />
       </header>
     </div>
   );
