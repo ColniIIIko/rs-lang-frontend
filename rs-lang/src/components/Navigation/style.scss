@@ -35,7 +35,7 @@
     color: variables.$font-color-active;
     cursor: default;
 
-    @include mixins.media-mobile{
-        color: variables.$font-color-active-mobile;
-    }
+    // @include mixins.media-mobile{
+    //     color: variables.$font-color-active-mobile;
+    // }
 }

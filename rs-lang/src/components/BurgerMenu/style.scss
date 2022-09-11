@@ -14,7 +14,7 @@
     height: 3px;
     border-radius: 5px;
     width: 100%;
-    background-color: #FFF;
+    background-color: #000;
 }
 
 .burger-ico{
@@ -94,8 +94,9 @@
     z-index: 4;
     right: 0;
     transform: translateX(100%);
-    background: linear-gradient(180.17deg, #D49FDC 0.15%, rgba(240, 217, 243, 0.19) 94.51%);
+    background: #FFF4FB;
     transition: all .4s ease-out;
+    border-radius: 10px 0 0 10px;
 
 
     &__close{
